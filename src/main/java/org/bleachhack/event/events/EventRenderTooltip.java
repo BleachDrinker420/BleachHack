@@ -24,17 +24,16 @@ public class EventRenderTooltip extends Event {
 	private int y;
 	private int mouseX;
 	private int mouseY;
+	private float delta;
 
-	public EventRenderTooltip(Screen screen, DrawContext context, List<TooltipComponent> components, int x, int y, int mouseX, int mouseY) {
+	public EventRenderTooltip(Screen screen, DrawContext context, int mouseX, int mouseY, float delta) {
 		this.context = context;
 		this.screen = screen;
-		this.components = components;
-		this.x = x;
-		this.y = y;
 		this.mouseX = mouseX;
 		this.mouseY = mouseY;
+		this.delta = delta;
 	}
-	
+
 	public Screen getScreen() {
 		return screen;
 	}
@@ -77,6 +76,10 @@ public class EventRenderTooltip extends Event {
 
 	public int getMouseY() {
 		return mouseY;
+	}
+
+	public float getDelta() {
+		return delta;
 	}
 	
 }

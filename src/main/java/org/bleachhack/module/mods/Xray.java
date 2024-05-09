@@ -8,11 +8,9 @@
  */
 package org.bleachhack.module.mods;
 
-import net.minecraft.entity.mob.MobEntity;
 import org.bleachhack.event.events.EventLightTex;
 import org.bleachhack.event.events.EventRenderBlock;
 import org.bleachhack.event.events.EventRenderFluid;
-import org.bleachhack.event.events.EventTick;
 import org.bleachhack.eventbus.BleachSubscribe;
 import org.bleachhack.module.Module;
 import org.bleachhack.module.ModuleCategory;
@@ -23,7 +21,6 @@ import org.bleachhack.util.world.WorldUtils;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.FernBlock;
 import net.minecraft.block.TallPlantBlock;
 import net.minecraft.client.render.RenderLayer;
 
@@ -112,7 +109,7 @@ public class Xray extends Module {
 		if (!getSetting(2).asList(Block.class).contains(event.getState().getBlock())) {
 			if (getSetting(1).asToggle().getState()) {
 				if (getSetting(1).asToggle().getChild(1).asToggle().getState()
-						&& (event.getState().getBlock() instanceof FernBlock
+						&& (event.getState().getBlock() == Blocks.FERN
 								|| event.getState().getBlock() instanceof TallPlantBlock
 								|| WorldUtils.getTopBlockIgnoreLeaves(event.getPos().getX(), event.getPos().getZ()) == event.getPos().getY())) {
 					event.setCancelled(true);

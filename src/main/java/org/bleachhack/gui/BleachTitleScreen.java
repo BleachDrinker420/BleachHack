@@ -165,9 +165,4 @@ public class BleachTitleScreen extends WindowScreen {
 		if (splash != null && splashTicks < 15)
 			splashTicks++;
 	}
-
-	@Override
-	public boolean mouseScrolled(double mouseX, double mouseY, double amount) {
-		return false;
-	}
 }

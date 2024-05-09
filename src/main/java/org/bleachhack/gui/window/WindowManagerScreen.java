@@ -97,11 +97,6 @@ public class WindowManagerScreen extends WindowScreen {
 		return super.charTyped(chr, modifiers);
 	}
 
-	@Override
-	public boolean mouseScrolled(double mouseX, double mouseY, double amount) {
-		return false;
-	}
-
 	private static class WindowTabButtonWidget extends WindowButtonWidget {
 
 		private ItemStack item;
@@ -126,7 +121,7 @@ public class WindowManagerScreen extends WindowScreen {
 			RenderSystem.getModelViewStack().push();
 			RenderSystem.getModelViewStack().scale(0.7f, 0.7f, 1f);
 
-			mc.getItemRenderer().renderItem(item, ModelTransformationMode.FIRST_PERSON_RIGHT_HAND, (int) ((bx1 + 2) / 0.7), (int) ((by1 - 6 + (by2 - by1) / 2.0) / 0.7), drawContext.getMatrices(), drawContext.getVertexConsumers(), mc.world, 0);
+			drawContext.drawItem(item, (int) ((bx1 + 2) / 0.7), (int) ((by1 - 6 + (by2 - by1) / 2.0) / 0.7));
 
 			RenderSystem.getModelViewStack().pop();
 			RenderSystem.applyModelViewMatrix();

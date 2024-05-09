@@ -21,7 +21,7 @@ public class MixinChatScreen {
 
 	@Inject(method = "keyPressed", at = @At("HEAD"), cancellable = true)
 	private void keyPressed(int keyCode, int scanCode, int modifiers, CallbackInfoReturnable<Boolean> callback) {
-		EventKeyPress.InChat event = new EventKeyPress.InChat(keyCode, scanCode, modifiers);
+		EventKeyPress.InChat event = new EventKeyPress.InChat(keyCode, scanCode, EventKeyPress.Status.PRESSED, modifiers);
 		BleachHack.eventBus.post(event);
 
 		if (event.isCancelled()) {

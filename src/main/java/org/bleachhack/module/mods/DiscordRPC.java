@@ -119,9 +119,9 @@ public class DiscordRPC extends Module {
 				case 0 ->"Playing " + (mc.getCurrentServerEntry() == null ? "Singleplayer" : mc.getCurrentServerEntry().address);
 				case 1 -> mc.getCurrentServerEntry() == null ? "Singleplayer" : mc.getCurrentServerEntry().address;
 				case 2 -> mc.getCurrentServerEntry() == null ? "Singleplayer" : "Multiplayer";
-				case 3 -> mc.player.getEntityName() + " Ontop!";
+				case 3 -> mc.player.getName() + " Ontop!";
 				case 4 -> "Minecraft " + SharedConstants.getGameVersion().getName();
-				case 5 -> mc.player.getEntityName();
+				case 5 -> mc.player.getDisplayName().toString();
 				case 6 -> "<- bad client";
 				default -> customText1;
 			});
@@ -141,7 +141,7 @@ public class DiscordRPC extends Module {
 
 			builder.setState(switch (getSetting(1).asMode().getMode()) {
 				case 0 -> (int) mc.player.getHealth() + " hp - Holding " + itemName;
-				case 1 -> mc.player.getEntityName() + " - " + (int) mc.player.getHealth() + " hp";
+				case 1 -> mc.player.getName() + " - " + (int) mc.player.getHealth() + " hp";
 				case 2 -> "Holding " + itemName;
 				case 3 -> (int) mc.player.getHealth() + " hp - At " + mc.player.getBlockPos().toShortString();
 				case 4 -> "At " + mc.player.getBlockPos().toShortString();

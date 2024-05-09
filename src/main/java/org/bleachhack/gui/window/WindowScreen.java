@@ -262,6 +262,4 @@ public abstract class WindowScreen extends Screen {
 
 		RenderSystem.disableBlend();
 	}
-
-	public abstract boolean mouseScrolled(double mouseX, double mouseY, double amount);
 }

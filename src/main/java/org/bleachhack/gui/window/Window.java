@@ -87,16 +87,14 @@ public class Window {
 
 		/* window icon */
 		if (icon != null) {
-			RenderSystem.getModelViewStack().push();
-			RenderSystem.getModelViewStack().translate(x1 + (blockItem ? 3 : 2), y1 + 2, 0);
-			RenderSystem.getModelViewStack().scale(0.6f, 0.6f, 1f);
+			drawContext.getMatrices().push();
+			drawContext.getMatrices().translate(x1 + (blockItem ? 3 : 2), y1 + 2, 0);
+			drawContext.getMatrices().scale(0.6f, 0.6f, 1f);
 
-			DiffuseLighting.enableGuiDepthLighting();
-			// TODO: Check
-			MinecraftClient.getInstance().getItemRenderer().renderItem(icon, ModelTransformationMode.FIRST_PERSON_RIGHT_HAND, 0, 0, drawContext.getMatrices(), drawContext.getVertexConsumers(), MinecraftClient.getInstance().world, 42);
+			//DiffuseLighting.enableGuiDepthLighting();
 
-			RenderSystem.getModelViewStack().pop();
-			RenderSystem.applyModelViewMatrix();
+			drawContext.drawItem(icon, 0, 0);
+			drawContext.getMatrices().pop();
 		}
 
 		/* window title */

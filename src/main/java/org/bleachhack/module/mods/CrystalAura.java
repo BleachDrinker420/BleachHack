@@ -311,6 +311,6 @@ public class CrystalAura extends Module {
 		if (!mc.world.isAir(placePos) || (oldPlace && !mc.world.isAir(placePos.up())))
 			return false;
 
-		return mc.world.getOtherEntities(null, new Box(placePos, placePos.up(oldPlace ? 2 : 1))).isEmpty();
+		return mc.world.getOtherEntities(null, new Box(placePos.toCenterPos(), placePos.up(oldPlace ? 2 : 1).toCenterPos())).isEmpty();
 	}
 }

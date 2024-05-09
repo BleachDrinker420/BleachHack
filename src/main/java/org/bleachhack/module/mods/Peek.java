@@ -11,6 +11,7 @@ package org.bleachhack.module.mods;
 import java.util.Arrays;
 import java.util.List;
 
+import net.minecraft.client.gui.DrawContext;
 import org.bleachhack.event.events.EventRenderTooltip;
 import org.bleachhack.eventbus.BleachSubscribe;
 import org.bleachhack.module.Module;
@@ -29,7 +30,6 @@ import net.minecraft.block.ChestBlock;
 import net.minecraft.block.DispenserBlock;
 import net.minecraft.block.HopperBlock;
 import net.minecraft.block.ShulkerBoxBlock;
-import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.screen.ingame.BookScreen;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.tooltip.TooltipComponent;
@@ -42,7 +42,6 @@ import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.VertexFormat;
 import net.minecraft.client.render.VertexFormats;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.FilledMapItem;
 import net.minecraft.item.ItemStack;
@@ -90,11 +89,11 @@ public class Peek extends Module {
 			slotY = slot.y;
 		}
 
-		event.getMatrix().push();
-		event.getMatrix().translate(0, 0, 400);
+		event.drawContext().getMatrices().push();
+		event.drawContext().getMatrices().translate(0, 0, 400);
 
 		if (getSetting(0).asToggle().getState()) {
-			List<TooltipComponent> components = drawShulkerToolTip(event.getMatrix(), slot, event.getMouseX(), event.getMouseY());
+			List<TooltipComponent> components = drawShulkerToolTip(event.drawContext(), slot, event.getMouseX(), event.getMouseY());
 			if (components != null) {
 				if (components.isEmpty()) {
 					event.setCancelled(true);
@@ -104,13 +103,13 @@ public class Peek extends Module {
 			}
 		}
 
-		if (getSetting(1).asToggle().getState()) drawBookToolTip(event.getMatrix(), slot, event.getMouseX(), event.getMouseY());
-		if (getSetting(2).asToggle().getState()) drawMapToolTip(event.getMatrix(), slot, event.getMouseX(), event.getMouseY());
+		if (getSetting(1).asToggle().getState()) drawBookToolTip(event.drawContext(), slot, event.getMouseX(), event.getMouseY());
+		if (getSetting(2).asToggle().getState()) drawMapToolTip(event.drawContext(), slot, event.getMouseX(), event.getMouseY());
 
-		event.getMatrix().pop();
+		event.drawContext().getMatrices().pop();
 	}
 
-	public List<TooltipComponent> drawShulkerToolTip(MatrixStack matrices, Slot slot, int mouseX, int mouseY) {
+	public List<TooltipComponent> drawShulkerToolTip(DrawContext context, Slot slot, int mouseX, int mouseY) {
 		if (!(slot.getStack().getItem() instanceof BlockItem)) {
 			return null;
 		}
@@ -137,7 +136,7 @@ public class Peek extends Module {
 		int tooltipWidth = block instanceof AbstractFurnaceBlock ? 47 : block instanceof HopperBlock ? 82 : 150;
 		int tooltipHeight = block instanceof AbstractFurnaceBlock || block instanceof HopperBlock || block instanceof DispenserBlock ? 13 : 47;
 
-		renderTooltipBox(matrices, mouseX, realY - tooltipHeight - 7, tooltipWidth, tooltipHeight, true);
+		renderTooltipBox(context, mouseX, realY - tooltipHeight - 7, tooltipWidth, tooltipHeight, true);
 
 		int count = block instanceof HopperBlock || block instanceof DispenserBlock || block instanceof AbstractFurnaceBlock ? 18 : 0;
 
@@ -146,12 +145,12 @@ public class Peek extends Module {
 				break;
 			}
 
-			int x = mouseX + 11 + 17 * (count % 9);
+			int x = mouseX + 17 * (count % 9);
 			int y = realY - 67 + 17 * (count / 9);
 
 			// mc.getItemRenderer().zOffset = 400;
-			mc.getItemRenderer().renderInGuiWithOverrides(matrices, i, x, y);
-			mc.getItemRenderer().renderGuiItemOverlay(matrices, mc.textRenderer, i, x, y, null);
+			context.drawItem(i, x, y);
+			context.drawItemTooltip(mc.textRenderer, i, x, y);
 			// mc.getItemRenderer().zOffset = 300;
 			count++;
 		}
@@ -165,7 +164,7 @@ public class Peek extends Module {
 		return null;
 	}
 
-	public void drawBookToolTip(MatrixStack matrices, Slot slot, int mouseX, int mouseY) {
+	public void drawBookToolTip(DrawContext drawContext, Slot slot, int mouseX, int mouseY) {
 		if (slot.getStack().getItem() != Items.WRITABLE_BOOK && slot.getStack().getItem() != Items.WRITTEN_BOOK)
 			return;
 
@@ -192,9 +191,7 @@ public class Peek extends Module {
 		RenderSystem.setShader(GameRenderer::getPositionTexProgram);
 		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 		RenderSystem.setShaderTexture(0, BookScreen.BOOK_TEXTURE);
-		DrawableHelper.drawTexture(
-				matrices,
-				mouseX, mouseY - 143, 0,
+		drawContext.drawTexture(BookScreen.BOOK_TEXTURE, mouseX, mouseY - 143, 0,
 				0, 0,
 				134, 134,
 				179, 179);
@@ -202,18 +199,14 @@ public class Peek extends Module {
 		Text pageIndexText = Text.translatable("book.pageIndicator", pageCount + 1, pages.size());
 		int pageIndexLength = mc.textRenderer.getWidth(pageIndexText);
 
-		matrices.push();
-		matrices.scale(0.7f, 0.7f, 1f);
+		drawContext.getMatrices().push();
+		drawContext.getMatrices().scale(0.7f, 0.7f, 1f);
 
-		mc.textRenderer.draw(
-				matrices,
-				pageIndexText,
-				(mouseX + 123 - pageIndexLength) * 1.43f,
-				(mouseY - 133) * 1.43f,
-				0x000000);
+		//VertexConsumerProvider.Immediate immediate = VertexConsumerProvider.immediate(Tessellator.getInstance().getBuffer());
+		//mc.textRenderer.draw(pageIndexText.toString(), (mouseX + 123 - pageIndexLength) * 1.43f, (mouseY - 133) * 1.43f, 0x000000, false, drawContext.getMatrices(), immediate, TextRenderer.TextLayerType.NORMAL, 0, 0);
 
 
-		int count = 0;
+		/*int count = 0;
 		for (String s : pages.get(pageCount)) {
 			mc.textRenderer.draw(
 					matrices,
@@ -223,13 +216,13 @@ public class Peek extends Module {
 					0x000000);
 
 			count++;
-		}
+		}*/
 
-		matrices.pop();
+		drawContext.getMatrices().pop();
 
 	}
 
-	public void drawMapToolTip(MatrixStack matrices, Slot slot, int mouseX, int mouseY) {
+	public void drawMapToolTip(DrawContext drawContext, Slot slot, int mouseX, int mouseY) {
 		if (slot.getStack().getItem() != Items.FILLED_MAP) {
 			return;
 		}
@@ -243,26 +236,26 @@ public class Peek extends Module {
 
 		float scale = getSetting(2).asToggle().getChild(0).asSlider().getValueFloat() / 1.25f;
 
-		matrices.push();
-		matrices.translate(mouseX + 14, mouseY - 18 - 135 * scale, 0);
-		matrices.scale(scale, scale, 0.0078125f);
+		drawContext.getMatrices().push();
+		drawContext.getMatrices().translate(mouseX + 14, mouseY - 18 - 135 * scale, 0);
+		drawContext.getMatrices().scale(scale, scale, 0.0078125f);
 
 		VertexConsumerProvider.Immediate immediate = VertexConsumerProvider.immediate(Tessellator.getInstance().getBuffer());
 		VertexConsumer backgroundVertexer = immediate.getBuffer(MAP_BACKGROUND_CHECKERBOARD);
-		Matrix4f matrix4f = matrices.peek().getPositionMatrix();
+		Matrix4f matrix4f = drawContext.getMatrices().peek().getPositionMatrix();
 		backgroundVertexer.vertex(matrix4f, -7f, 135f, -10f).color(255, 255, 255, 255).texture(0f, 1f).light(0xf000f0).next();
 		backgroundVertexer.vertex(matrix4f, 135f, 135f, -10f).color(255, 255, 255, 255).texture(1f, 1f).light(0xf000f0).next();
 		backgroundVertexer.vertex(matrix4f, 135f, -7f, -10f).color(255, 255, 255, 255).texture(1f, 0f).light(0xf000f0).next();
 		backgroundVertexer.vertex(matrix4f, -7f, -7f, -10f).color(255, 255, 255, 255).texture(0f, 0f).light(0xf000f0).next();
 
-		mc.gameRenderer.getMapRenderer().draw(matrices, immediate, id, mapState, false, 0xf000f0);
+		mc.gameRenderer.getMapRenderer().draw(drawContext.getMatrices(), immediate, id, mapState, false, 0xf000f0);
 		immediate.draw();
 
-		matrices.pop();
+		drawContext.getMatrices().pop();
 
 	}
 
-	private void renderTooltipBox(MatrixStack matrices, int x1, int y1, int x2, int y2, boolean wrap) {
+	private void renderTooltipBox(DrawContext drawContext, int x1, int y1, int x2, int y2, boolean wrap) {
 		int xStart = x1 + 12;
 		int yStart = y1 - 12;
 		if (wrap) {
@@ -276,7 +269,7 @@ public class Peek extends Module {
 		BufferBuilder bufferBuilder = tessellator.getBuffer();
 		bufferBuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_COLOR);
 
-		Matrix4f matrix4f = matrices.peek().getPositionMatrix();
+		Matrix4f matrix4f = drawContext.getMatrices().peek().getPositionMatrix();
 		fillGradient(matrix4f, bufferBuilder, xStart - 3, yStart - 4, xStart + x2 + 3, yStart - 3, -267386864, -267386864);
 		fillGradient(matrix4f, bufferBuilder, xStart - 3, yStart + y2 + 3, xStart + x2 + 3, yStart + y2 + 4, -267386864, -267386864);
 		fillGradient(matrix4f, bufferBuilder, xStart - 3, yStart - 3, xStart + x2 + 3, yStart + y2 + 3, -267386864, -267386864);

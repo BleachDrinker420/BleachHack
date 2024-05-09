@@ -262,12 +262,12 @@ public abstract class SettingList<T> extends ModuleSetting<LinkedHashSet<T>> {
 			return super.mouseClicked(mouseX, mouseY, button);
 		}
 
-		public boolean mouseScrolled(double mouseX, double mouseY, double amount) {
+		public boolean mouseScrolled(double mouseX, double mouseY, double amountH, double amountV) {
 			if (!inputField.textField.isFocused() || inputField.textField.getText().isEmpty()) {
-				scrollbar.scroll(amount);
+				scrollbar.scroll(amountV);
 			}
 
-			return super.mouseScrolled(mouseX, mouseY, amount, amount);
+			return super.mouseScrolled(mouseX, mouseY, amountH, amountV);
 		}
 	}
 }

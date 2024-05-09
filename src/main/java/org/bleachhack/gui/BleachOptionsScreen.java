@@ -9,11 +9,6 @@
 package org.bleachhack.gui;
 
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.text.HoverEvent;
-import net.minecraft.text.Text;
 import org.bleachhack.gui.window.Window;
 import org.bleachhack.gui.window.WindowScreen;
 import org.bleachhack.gui.window.widget.WindowButtonWidget;
@@ -21,6 +16,12 @@ import org.bleachhack.gui.window.widget.WindowScrollbarWidget;
 import org.bleachhack.gui.window.widget.WindowTextWidget;
 import org.bleachhack.gui.window.widget.WindowWidget;
 import org.bleachhack.setting.option.Option;
+
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.text.HoverEvent;
+import net.minecraft.text.Text;
 
 
 public class BleachOptionsScreen extends WindowScreen {
@@ -109,10 +110,10 @@ public class BleachOptionsScreen extends WindowScreen {
 	}
 
 	@Override
-	public boolean mouseScrolled(double mouseX, double mouseY, double amount) {
-		scrollbar.moveScrollbar((int) -amount * 7);
+	public boolean mouseScrolled(double mouseX, double mouseY, double amountH, double amountV) {
+		scrollbar.moveScrollbar((int) -amountV * 7);
 
-		return super.mouseScrolled(mouseX, mouseY, amount, amount);
+		return super.mouseScrolled(mouseX, mouseY, amountH, amountV);
 	}
 
 	@Override

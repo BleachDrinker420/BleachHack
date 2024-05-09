@@ -184,13 +184,6 @@ public class UpdateScreen extends WindowScreen {
 	}
 
 	@Override
-	public boolean mouseScrolled(double mouseX, double mouseY, double amount) {
-		scrollbar.moveScrollbar((int) -amount * 7);
-
-		return super.mouseScrolled(mouseX, mouseY, amount, amount);
-	}
-
-	@Override
 	public void close() {
 		client.setScreen(parent);
 	}

@@ -14,10 +14,12 @@ public class EventKeyPress extends Event {
 
 	private int key;
 	private int scanCode;
+	private Status status;
 
-	public EventKeyPress(int key, int scanCode) {
+	public EventKeyPress(int key, int scanCode, Status status) {
 		this.key = key;
 		this.scanCode = scanCode;
+		this.status = status;
 	}
 
 	public int getKey() {
@@ -33,8 +35,8 @@ public class EventKeyPress extends Event {
 		private int action;
 		private int modifiers;
 
-		public Global(int key, int scanCode, int action, int modifiers) {
-			super(key, scanCode);
+		public Global(int key, int scanCode, Status status, int action, int modifiers) {
+			super(key, scanCode, status);
 			this.action = action;
 			this.modifiers = modifiers;
 		}
@@ -51,8 +53,8 @@ public class EventKeyPress extends Event {
 
 	public static class InWorld extends EventKeyPress {
 
-		public InWorld(int key, int scanCode) {
-			super(key, scanCode);
+		public InWorld(int key, int scanCode, Status status) {
+			super(key, scanCode, status);
 		}
 
 	}
@@ -61,8 +63,8 @@ public class EventKeyPress extends Event {
 
 		private int modifiers;
 
-		public InChat(int key, int scanCode, int modifiers) {
-			super(key, scanCode);
+		public InChat(int key, int scanCode, Status status, int modifiers) {
+			super(key, scanCode, status);
 			this.modifiers = modifiers;
 		}
 
@@ -70,5 +72,10 @@ public class EventKeyPress extends Event {
 			return modifiers;
 		}
 
+	}
+
+	public enum Status {
+		RELEASED,
+		PRESSED
 	}
 }

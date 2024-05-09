@@ -146,9 +146,9 @@ public class BleachCreditsScreen extends WindowScreen {
 		super.render(drawContext, mouseX, mouseY, delta);
 	}
 
-	public boolean mouseScrolled(double mouseX, double mouseY, double amount) {
-		scrollbar.moveScrollbar((int) -amount * 7);
+	public boolean mouseScrolled(double mouseX, double mouseY, double amountH, double amountV) {
+		scrollbar.moveScrollbar((int) -amountV * 7);
 
-		return super.mouseScrolled(mouseX, mouseY, amount, amount);
+		return super.mouseScrolled(mouseX, mouseY, amountH, amountV);
 	}
 }

@@ -34,7 +34,7 @@ public class WindowTextFieldWidget extends WindowWidget {
 	public void mouseClicked(int windowX, int windowY, int mouseX, int mouseY, int button) {
 		super.mouseClicked(windowX, windowY, mouseX, mouseY, button);
 
-		textField.mouseClicked(mouseX, mouseY, button);
+		textField.setFocused(textField.mouseClicked(mouseX, mouseY, button));
 	}
 
 	@Override
