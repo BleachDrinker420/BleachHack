@@ -8,6 +8,12 @@
  */
 package org.bleachhack.gui;
 
+import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.text.HoverEvent;
+import net.minecraft.text.Text;
 import org.bleachhack.gui.window.Window;
 import org.bleachhack.gui.window.WindowScreen;
 import org.bleachhack.gui.window.widget.WindowButtonWidget;
@@ -15,13 +21,6 @@ import org.bleachhack.gui.window.widget.WindowScrollbarWidget;
 import org.bleachhack.gui.window.widget.WindowTextWidget;
 import org.bleachhack.gui.window.widget.WindowWidget;
 import org.bleachhack.setting.option.Option;
-
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.text.HoverEvent;
-import net.minecraft.text.Text;
 
 
 public class BleachOptionsScreen extends WindowScreen {
@@ -95,8 +94,8 @@ public class BleachOptionsScreen extends WindowScreen {
 	}
 
 	@Override
-	public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-		this.renderBackground(matrices);
+	public void render(DrawContext drawContext, int mouseX, int mouseY, float delta) {
+		this.renderBackground(drawContext, mouseX, mouseY, delta);
 
 		int offset = scrollbar.getOffsetSinceRender();
 		for (WindowWidget widget: getWindow(0).getWidgets()) {
@@ -106,14 +105,14 @@ public class BleachOptionsScreen extends WindowScreen {
 			}
 		}
 
-		super.render(matrices, mouseX, mouseY, delta);
+		super.render(drawContext, mouseX, mouseY, delta);
 	}
 
 	@Override
 	public boolean mouseScrolled(double mouseX, double mouseY, double amount) {
 		scrollbar.moveScrollbar((int) -amount * 7);
 
-		return super.mouseScrolled(mouseX, mouseY, amount);
+		return super.mouseScrolled(mouseX, mouseY, amount, amount);
 	}
 
 	@Override

@@ -8,16 +8,15 @@
  */
 package org.bleachhack.mixin;
 
-import java.util.Iterator;
-
+import net.minecraft.fluid.FlowableFluid;
+import net.minecraft.util.math.Direction;
 import org.bleachhack.module.ModuleManager;
 import org.bleachhack.module.mods.NoVelocity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
-import net.minecraft.fluid.FlowableFluid;
-import net.minecraft.util.math.Direction;
+import java.util.Iterator;
 
 @Mixin(FlowableFluid.class)
 public class MixinFlowableFluid {

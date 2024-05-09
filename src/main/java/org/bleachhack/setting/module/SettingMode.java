@@ -8,15 +8,14 @@
  */
 package org.bleachhack.setting.module;
 
+import net.minecraft.client.gui.DrawContext;
 import org.bleachhack.gui.clickgui.window.ModuleWindow;
 import org.bleachhack.setting.SettingDataHandlers;
 
 import com.google.gson.JsonElement;
 
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.sound.PositionedSoundInstance;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.MathHelper;
 
@@ -33,12 +32,12 @@ public class SettingMode extends ModuleSetting<Integer> {
 		return getValue().intValue();
 	}
 
-	public void render(ModuleWindow window, MatrixStack matrices, int x, int y, int len) {
+	public void render(ModuleWindow window, DrawContext drawContext, int x, int y, int len) {
 		if (window.mouseOver(x, y, x + len, y + 12)) {
-			DrawableHelper.fill(matrices, x + 1, y, x + len, y + 12, 0x70303070);
+			drawContext.fill(x + 1, y, x + len, y + 12, 0x70303070);
 		}
 
-		MinecraftClient.getInstance().textRenderer.drawWithShadow(matrices, getName() + ": " + modes[getValue()], x + 3, y + 2, 0xcfe0cf);
+		drawContext.drawTextWithShadow(MinecraftClient.getInstance().textRenderer, getName() + ": " + modes[getValue()], x + 3, y + 2, 0xcfe0cf);
 
 		if (window.mouseOver(x, y, x + len, y + 12) && window.lmDown) {
 			setValue(getValue() >= modes.length - 1 ? 0 : getValue() + 1);

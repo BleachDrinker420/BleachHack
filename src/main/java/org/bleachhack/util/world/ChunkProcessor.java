@@ -1,25 +1,20 @@
 package org.bleachhack.util.world;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.function.BiConsumer;
-
-import org.bleachhack.BleachHack;
-import org.bleachhack.event.events.EventPacket;
-import org.bleachhack.eventbus.BleachSubscribe;
-
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.network.packet.s2c.play.BlockUpdateS2CPacket;
-import net.minecraft.network.packet.s2c.play.ChunkDataS2CPacket;
-import net.minecraft.network.packet.s2c.play.ChunkDeltaUpdateS2CPacket;
-import net.minecraft.network.packet.s2c.play.ExplosionS2CPacket;
-import net.minecraft.network.packet.s2c.play.UnloadChunkS2CPacket;
+import net.minecraft.network.packet.s2c.play.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.chunk.WorldChunk;
+import org.bleachhack.BleachHack;
+import org.bleachhack.event.events.EventPacket;
+import org.bleachhack.eventbus.BleachSubscribe;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.function.BiConsumer;
 
 public class ChunkProcessor {
 
@@ -89,15 +84,15 @@ public class ChunkProcessor {
 		} else if (loadChunkConsumer != null && event.getPacket() instanceof ChunkDataS2CPacket) {
 			ChunkDataS2CPacket packet = (ChunkDataS2CPacket) event.getPacket();
 
-			ChunkPos cp = new ChunkPos(packet.getX(), packet.getZ());
+			ChunkPos cp = new ChunkPos(packet.getChunkX(), packet.getChunkZ());
 			WorldChunk chunk = new WorldChunk(MinecraftClient.getInstance().world, cp);
-			chunk.loadFromPacket(packet.getChunkData().getSectionsDataBuf(), new NbtCompound(), packet.getChunkData().getBlockEntities(packet.getX(), packet.getZ()));
+			chunk.loadFromPacket(packet.getChunkData().getSectionsDataBuf(), new NbtCompound(), packet.getChunkData().getBlockEntities(packet.getChunkX(), packet.getChunkZ()));
 
 			executor.execute(() -> loadChunkConsumer.accept(cp, chunk));
 		} else if (unloadChunkConsumer != null && event.getPacket() instanceof UnloadChunkS2CPacket) {
 			UnloadChunkS2CPacket packet = (UnloadChunkS2CPacket) event.getPacket();
 
-			ChunkPos cp = new ChunkPos(packet.getX(), packet.getZ());
+			ChunkPos cp = new ChunkPos(packet.pos().x, packet.pos().z);
 			WorldChunk chunk = MinecraftClient.getInstance().world.getChunk(cp.x, cp.z);
 
 			executor.execute(() -> unloadChunkConsumer.accept(cp, chunk));

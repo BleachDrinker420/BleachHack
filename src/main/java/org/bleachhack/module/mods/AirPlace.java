@@ -91,6 +91,6 @@ public class AirPlace extends Module {
 	
 	private boolean canPlaceAtCrosshair() {
 		return mc.crosshairTarget instanceof BlockHitResult
-				&& mc.world.getBlockState(((BlockHitResult) mc.crosshairTarget).getBlockPos()).getMaterial().isReplaceable();
+				&& mc.world.getBlockState(((BlockHitResult) mc.crosshairTarget).getBlockPos()).isReplaceable();
 	}
 }

@@ -1,8 +1,8 @@
 package org.bleachhack.gui.window.widget;
 
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.widget.TextFieldWidget;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 
 
@@ -22,12 +22,12 @@ public class WindowTextFieldWidget extends WindowWidget {
 	}
 
 	@Override
-	public void render(MatrixStack matrices, int windowX, int windowY, int mouseX, int mouseY) {
+	public void render(DrawContext drawContext, int windowX, int windowY, int mouseX, int mouseY) {
 		textField.setX(windowX + x1);
 		textField.setY(windowY + y1);
-		textField.render(matrices, mouseX, mouseY, MinecraftClient.getInstance().getTickDelta());
+		textField.render(drawContext, mouseX, mouseY, MinecraftClient.getInstance().getTickDelta());
 
-		super.render(matrices, windowX, windowY, mouseX, mouseY);
+		super.render(drawContext, windowX, windowY, mouseX, mouseY);
 	}
 
 	@Override
@@ -40,8 +40,7 @@ public class WindowTextFieldWidget extends WindowWidget {
 	@Override
 	public void tick() {
 		super.tick();
-
-		textField.tick();
+		//textField.tick();
 	}
 
 	@Override

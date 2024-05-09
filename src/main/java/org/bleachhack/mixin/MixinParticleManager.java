@@ -8,17 +8,16 @@
  */
 package org.bleachhack.mixin;
 
+import net.minecraft.client.particle.Particle;
+import net.minecraft.client.particle.ParticleManager;
+import net.minecraft.entity.Entity;
+import net.minecraft.particle.ParticleEffect;
 import org.bleachhack.BleachHack;
 import org.bleachhack.event.events.EventParticle;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import net.minecraft.client.particle.Particle;
-import net.minecraft.client.particle.ParticleManager;
-import net.minecraft.entity.Entity;
-import net.minecraft.particle.ParticleEffect;
 
 @Mixin(ParticleManager.class)
 public class MixinParticleManager {

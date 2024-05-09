@@ -8,11 +8,11 @@
  */
 package org.bleachhack.util.world;
 
-import java.util.UUID;
-
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.OtherClientPlayerEntity;
 import net.minecraft.entity.player.PlayerEntity;
+
+import java.util.UUID;
 
 public class PlayerCopyEntity extends OtherClientPlayerEntity {
 
@@ -40,7 +40,7 @@ public class PlayerCopyEntity extends OtherClientPlayerEntity {
 
 	public void spawn() {
 		unsetRemoved();
-		MinecraftClient.getInstance().world.addEntity(this.getId(), this);
+		MinecraftClient.getInstance().world.addEntity(this);
 	}
 
 	public void despawn() {

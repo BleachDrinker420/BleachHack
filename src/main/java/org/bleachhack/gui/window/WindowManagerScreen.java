@@ -8,15 +8,16 @@
  */
 package org.bleachhack.gui.window;
 
-import java.util.List;
-import org.apache.commons.lang3.tuple.Triple;
-import org.bleachhack.gui.window.widget.WindowButtonWidget;
 import com.mojang.blaze3d.systems.RenderSystem;
-
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.Element;
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
+import org.apache.commons.lang3.tuple.Triple;
+import org.bleachhack.gui.window.widget.WindowButtonWidget;
+
+import java.util.List;
 
 
 public class WindowManagerScreen extends WindowScreen {
@@ -96,6 +97,11 @@ public class WindowManagerScreen extends WindowScreen {
 		return super.charTyped(chr, modifiers);
 	}
 
+	@Override
+	public boolean mouseScrolled(double mouseX, double mouseY, double amount) {
+		return false;
+	}
+
 	private static class WindowTabButtonWidget extends WindowButtonWidget {
 
 		private ItemStack item;
@@ -106,13 +112,13 @@ public class WindowManagerScreen extends WindowScreen {
 		}
 
 		@Override
-		public void render(MatrixStack matrices, int windowX, int windowY, int mouseX, int mouseY) {
+		public void render(DrawContext drawContext, int windowX, int windowY, int mouseX, int mouseY) {
 			int bx1 = windowX + x1;
 			int by1 = windowY + y1;
 			int bx2 = windowX + x2;
 			int by2 = windowY + y2;
 
-			Window.fill(matrices,
+			Window.fill(drawContext,
 					bx1, by1, bx2, by2,
 					colorTop, colorBottom,
 					isInBounds(windowX, windowY, mouseX, mouseY) ? colorHoverFill : colorFill);
@@ -120,12 +126,12 @@ public class WindowManagerScreen extends WindowScreen {
 			RenderSystem.getModelViewStack().push();
 			RenderSystem.getModelViewStack().scale(0.7f, 0.7f, 1f);
 
-			mc.getItemRenderer().renderGuiItemIcon(matrices, item, (int) ((bx1 + 2) / 0.7), (int) ((by1 - 6 + (by2 - by1) / 2.0) / 0.7));
+			mc.getItemRenderer().renderItem(item, ModelTransformationMode.FIRST_PERSON_RIGHT_HAND, (int) ((bx1 + 2) / 0.7), (int) ((by1 - 6 + (by2 - by1) / 2.0) / 0.7), drawContext.getMatrices(), drawContext.getVertexConsumers(), mc.world, 0);
 
 			RenderSystem.getModelViewStack().pop();
 			RenderSystem.applyModelViewMatrix();
 
-			mc.textRenderer.drawWithShadow(matrices, text, bx1 + 16, by1 + (by2 - by1) / 2 - 4, -1);
+			drawContext.drawTextWithShadow(mc.textRenderer, text, bx1 + 16, by1 + (by2 - by1) / 2 - 4, -1);
 		}
 	}
 }

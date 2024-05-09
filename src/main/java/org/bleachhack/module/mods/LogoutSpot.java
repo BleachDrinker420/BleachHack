@@ -1,7 +1,6 @@
 package org.bleachhack.module.mods;
 
 import net.minecraft.client.gui.screen.DisconnectedScreen;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.packet.s2c.play.PlayerListS2CPacket;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.Vec3d;
@@ -16,7 +15,6 @@ import org.bleachhack.module.Module;
 import org.bleachhack.module.ModuleCategory;
 import org.bleachhack.setting.module.SettingSlider;
 import org.bleachhack.setting.module.SettingToggle;
-import org.bleachhack.util.BleachQueue;
 import org.bleachhack.util.render.WorldRenderer;
 import org.bleachhack.util.world.PlayerCopyEntity;
 

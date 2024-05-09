@@ -8,12 +8,8 @@
  */
 package org.bleachhack.mixin;
 
-import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Objects;
-import java.util.Random;
 import java.util.Set;
-import java.util.stream.Stream;
 
 import it.unimi.dsi.fastutil.objects.ReferenceArraySet;
 import org.bleachhack.BleachHack;
@@ -40,7 +36,6 @@ import net.minecraft.client.render.block.BlockModelRenderer;
 import net.minecraft.client.render.block.BlockRenderManager;
 import net.minecraft.client.render.chunk.BlockBufferBuilderStorage;
 import net.minecraft.client.render.chunk.ChunkBuilder;
-import net.minecraft.client.render.chunk.ChunkBuilder.ChunkData;
 import net.minecraft.client.render.chunk.ChunkOcclusionDataBuilder;
 import net.minecraft.client.render.chunk.ChunkRendererRegion;
 import net.minecraft.client.util.math.MatrixStack;
@@ -142,7 +137,7 @@ public class MixinChunkRebuildTask {
 			if (set.contains(RenderLayer.getTranslucent())) {
 				BufferBuilder bufferBuilder2 = buffers.get(RenderLayer.getTranslucent());
 				if (!bufferBuilder2.isBatchEmpty()) {
-					bufferBuilder2.sortFrom(cameraX - (float)blockPos.getX(), cameraY - (float)blockPos.getY(), cameraZ - (float)blockPos.getZ());
+					//bufferBuilder2.sortFrom(cameraX - (float)blockPos.getX(), cameraY - (float)blockPos.getY(), cameraZ - (float)blockPos.getZ());
 					renderData.translucencySortingData = bufferBuilder2.getSortingData();
 				}
 			}
@@ -153,7 +148,7 @@ public class MixinChunkRebuildTask {
 				RenderLayer renderLayer2 = (RenderLayer)var15.next();
 				BufferBuilder.BuiltBuffer builtBuffer = buffers.get(renderLayer2).endNullable();
 				if (builtBuffer != null) {
-					renderData.field_39081.put(renderLayer2, builtBuffer);
+					renderData.buffers.put(renderLayer2, builtBuffer);
 				}
 			}
 

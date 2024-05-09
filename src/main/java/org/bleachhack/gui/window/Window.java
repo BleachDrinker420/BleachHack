@@ -8,27 +8,20 @@
  */
 package org.bleachhack.gui.window;
 
-import java.util.ArrayList;
-import java.util.ConcurrentModificationException;
-import java.util.List;
-
-import org.bleachhack.gui.window.widget.WindowWidget;
-
 import com.mojang.blaze3d.systems.RenderSystem;
-
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.gui.DrawableHelper;
-import net.minecraft.client.render.BufferBuilder;
-import net.minecraft.client.render.DiffuseLighting;
-import net.minecraft.client.render.GameRenderer;
-import net.minecraft.client.render.Tessellator;
-import net.minecraft.client.render.VertexFormat;
-import net.minecraft.client.render.VertexFormats;
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.render.*;
+import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import org.bleachhack.gui.window.widget.WindowWidget;
+
+import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
+import java.util.List;
 
 public class Window {
 
@@ -72,7 +65,7 @@ public class Window {
 		return widget;
 	}
 
-	public void render(MatrixStack matrices, int mouseX, int mouseY) {
+	public void render(DrawContext drawContext, int mouseX, int mouseY) {
 		TextRenderer textRend = MinecraftClient.getInstance().textRenderer;
 
 		if (dragging) {
@@ -82,11 +75,11 @@ public class Window {
 			y1 = Math.max(0, mouseY - dragOffY);
 		}
 
-		drawBackground(matrices, mouseX, mouseY, textRend);
+		drawBackground(drawContext, mouseX, mouseY, textRend);
 
 		for (WindowWidget w : widgets) {
 			if (w.shouldRender(x1, y1, x2, y2)) {
-				w.render(matrices, x1, y1, mouseX, mouseY);
+				w.render(drawContext, x1, y1, mouseX, mouseY);
 			}
 		}
 
@@ -99,36 +92,36 @@ public class Window {
 			RenderSystem.getModelViewStack().scale(0.6f, 0.6f, 1f);
 
 			DiffuseLighting.enableGuiDepthLighting();
-			MinecraftClient.getInstance().getItemRenderer().renderInGuiWithOverrides(matrices, icon, 0, 0);
-			DiffuseLighting.disableGuiDepthLighting();
+			// TODO: Check
+			MinecraftClient.getInstance().getItemRenderer().renderItem(icon, ModelTransformationMode.FIRST_PERSON_RIGHT_HAND, 0, 0, drawContext.getMatrices(), drawContext.getVertexConsumers(), MinecraftClient.getInstance().world, 42);
 
 			RenderSystem.getModelViewStack().pop();
 			RenderSystem.applyModelViewMatrix();
 		}
 
 		/* window title */
-		textRend.drawWithShadow(matrices, title,
+		drawContext.drawTextWithShadow(textRend, title,
 				x1 + (icon == null || icon.getItem() == Items.AIR ? 4 : (blockItem ? 15 : 14)), y1 + 3, -1);
 	}
 
-	protected void drawBackground(MatrixStack matrices, int mouseX, int mouseY, TextRenderer textRend) {
+	protected void drawBackground(DrawContext drawContext, int mouseX, int mouseY, TextRenderer textRend) {
 		/* background */
-		DrawableHelper.fill(matrices, x1, y1 + 1, x1 + 1, y2 - 1, 0xff6060b0);
-		horizontalGradient(matrices, x1 + 1, y1, x2 - 1, y1 + 1, 0xff6060b0, 0xff8070b0);
-		DrawableHelper.fill(matrices, x2 - 1, y1 + 1, x2, y2 - 1, 0xff8070b0);
-		horizontalGradient(matrices, x1 + 1, y2 - 1, x2 - 1, y2, 0xff6060b0, 0xff8070b0);
+		drawContext.fill(x1, y1 + 1, x1 + 1, y2 - 1, 0xff6060b0);
+		horizontalGradient(x1 + 1, y1, x2 - 1, y1 + 1, 0xff6060b0, 0xff8070b0);
+		drawContext.fill(x2 - 1, y1 + 1, x2, y2 - 1, 0xff8070b0);
+		horizontalGradient(x1 + 1, y2 - 1, x2 - 1, y2, 0xff6060b0, 0xff8070b0);
 
-		DrawableHelper.fill(matrices, x1 + 1, y1 + 12, x2 - 1, y2 - 1, 0x90606090);
+		drawContext.fill(x1 + 1, y1 + 12, x2 - 1, y2 - 1, 0x90606090);
 
 		/* title bar */
-		horizontalGradient(matrices, x1 + 1, y1 + 1, x2 - 1, y1 + 12, (selected ? 0xff6060b0 : 0xff606060), (selected ? 0xff8070b0 : 0xffa0a0a0));
+		horizontalGradient(x1 + 1, y1 + 1, x2 - 1, y1 + 12, (selected ? 0xff6060b0 : 0xff606060), (selected ? 0xff8070b0 : 0xffa0a0a0));
 
 		/* buttons */
-		textRend.draw(matrices, "x", x2 - 10, y1 + 3, 0);
-		textRend.draw(matrices, "x", x2 - 11, y1 + 2, -1);
+		drawContext.drawText(textRend, "x", x2 - 10, y1 + 3, 0, false);
+		drawContext.drawText(textRend, "x", x2 -11, y1 + 2, -1, false);
 
-		textRend.draw(matrices, "_", x2 - 21, y1 + 2, 0);
-		textRend.draw(matrices, "_", x2 - 22, y1 + 1, -1);
+		drawContext.drawText(textRend, "_", x2 - 22, y1 + 2, 0, false);
+		drawContext.drawText(textRend, "_", x2 - 22, y1 + 1, -1, false);
 	}
 
 	public boolean shouldClose(int mouseX, int mouseY) {
@@ -187,23 +180,23 @@ public class Window {
 		}
 	}
 
-	public static void fill(MatrixStack matrices, int x1, int y1, int x2, int y2) {
-		fill(matrices, x1, y1, x2, y2, 0xff6060b0, 0xff8070b0, 0x00000000);
+	public static void fill(DrawContext drawContext, int x1, int y1, int x2, int y2) {
+		fill(drawContext, x1, y1, x2, y2, 0xff6060b0, 0xff8070b0, 0x00000000);
 	}
 
-	public static void fill(MatrixStack matrices, int x1, int y1, int x2, int y2, int fill) {
-		fill(matrices, x1, y1, x2, y2, 0xff6060b0, 0xff8070b0, fill);
+	public static void fill(DrawContext drawContext, int x1, int y1, int x2, int y2, int fill) {
+		fill(drawContext, x1, y1, x2, y2, 0xff6060b0, 0xff8070b0, fill);
 	}
 
-	public static void fill(MatrixStack matrices, int x1, int y1, int x2, int y2, int colTop, int colBot, int colFill) {
-		DrawableHelper.fill(matrices, x1, y1 + 1, x1 + 1, y2 - 1, colTop);
-		DrawableHelper.fill(matrices, x1 + 1, y1, x2 - 1, y1 + 1, colTop);
-		DrawableHelper.fill(matrices, x2 - 1, y1 + 1, x2, y2 - 1, colBot);
-		DrawableHelper.fill(matrices, x1 + 1, y2 - 1, x2 - 1, y2, colBot);
-		DrawableHelper.fill(matrices, x1 + 1, y1 + 1, x2 - 1, y2 - 1, colFill);
+	public static void fill(DrawContext drawContext, int x1, int y1, int x2, int y2, int colTop, int colBot, int colFill) {
+		drawContext.fill(x1, y1 + 1, x1 + 1, y2 - 1, colTop);
+		drawContext.fill(x1 + 1, y1, x2 - 1, y1 + 1, colTop);
+		drawContext.fill(x2 - 1, y1 + 1, x2, y2 - 1, colBot);
+		drawContext.fill(x1 + 1, y2 - 1, x2 - 1, y2, colBot);
+		drawContext.fill(x1 + 1, y1 + 1, x2 - 1, y2 - 1, colFill);
 	}
 
-	public static void horizontalGradient(MatrixStack matrices, int x1, int y1, int x2, int y2, int color1, int color2) {
+	public static void horizontalGradient(int x1, int y1, int x2, int y2, int color1, int color2) {
 		float alpha1 = (color1 >> 24 & 255) / 255.0F;
 		float red1   = (color1 >> 16 & 255) / 255.0F;
 		float green1 = (color1 >> 8 & 255) / 255.0F;
@@ -226,7 +219,7 @@ public class Window {
 		RenderSystem.disableBlend();
 	}
 
-	public static void verticalGradient(MatrixStack matrices, int x1, int y1, int x2, int y2, int color1, int color2) {
+	public static void verticalGradient(DrawContext context, int x1, int y1, int x2, int y2, int color1, int color2) {
 		float alpha1 = (color1 >> 24 & 255) / 255.0F;
 		float red1   = (color1 >> 16 & 255) / 255.0F;
 		float green1 = (color1 >> 8 & 255) / 255.0F;

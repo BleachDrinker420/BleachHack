@@ -8,9 +8,8 @@
  */
 package org.bleachhack.event.events;
 
-import org.bleachhack.event.Event;
-
 import net.minecraft.entity.damage.DamageSource;
+import org.bleachhack.event.Event;
 
 public class EventDamage extends Event {
 

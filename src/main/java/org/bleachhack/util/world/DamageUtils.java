@@ -10,13 +10,8 @@ package org.bleachhack.util.world;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.DamageUtil;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityGroup;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.*;
 import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -114,7 +109,7 @@ public class DamageUtils {
 			return 0f;
 		}
 
-		if (!target.isImmuneToExplosion() && !target.isInvulnerable()) {
+		if (!target.isInvulnerable()) {
 			double distExposure = Math.sqrt(target.squaredDistanceTo(explosionPos)) / maxDist;
 			if (distExposure <= 1.0) {
 				double xDiff = target.getX() - explosionPos.x;

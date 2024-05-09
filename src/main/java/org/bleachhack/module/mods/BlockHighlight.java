@@ -2,7 +2,6 @@ package org.bleachhack.module.mods;
 
 import java.io.IOException;
 
-import net.minecraft.client.gl.PostEffectProcessor;
 import org.bleachhack.event.events.EventRenderBlockOutline;
 import org.bleachhack.event.events.EventWorldRender;
 import org.bleachhack.eventbus.BleachSubscribe;
@@ -21,7 +20,6 @@ import org.bleachhack.util.shader.ShaderEffectWrapper;
 import com.google.gson.JsonSyntaxException;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Material;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.render.LightmapTextureManager;
 import net.minecraft.client.render.OverlayTexture;
@@ -79,9 +77,9 @@ public class BlockHighlight extends Module {
 
 		BlockPos pos = ((BlockHitResult) mc.crosshairTarget).getBlockPos();
 		BlockState state = mc.world.getBlockState(pos);
-
-		if (state.getMaterial() == Material.AIR || !mc.world.getWorldBorder().contains(pos))
+		if (!state.isSolidBlock(mc.world, pos) || !mc.world.getWorldBorder().contains(pos)) {
 			return;
+		}
 
 		int[] color = this.getSetting(4).asColor().getRGBArray();
 		if (mode == 0) {

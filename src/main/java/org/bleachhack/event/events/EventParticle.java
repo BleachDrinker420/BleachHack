@@ -8,10 +8,9 @@
  */
 package org.bleachhack.event.events;
 
-import org.bleachhack.event.Event;
-
 import net.minecraft.client.particle.Particle;
 import net.minecraft.particle.ParticleEffect;
+import org.bleachhack.event.Event;
 
 public class EventParticle extends Event {
 

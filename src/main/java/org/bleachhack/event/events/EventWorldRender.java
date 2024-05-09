@@ -8,9 +8,8 @@
  */
 package org.bleachhack.event.events;
 
-import org.bleachhack.event.Event;
-
 import net.minecraft.client.util.math.MatrixStack;
+import org.bleachhack.event.Event;
 
 public class EventWorldRender extends Event {
 

@@ -8,22 +8,21 @@
  */
 package org.bleachhack.gui.clickgui;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
+import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.sound.PositionedSoundInstance;
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.text.Text;
 import org.apache.commons.lang3.ArrayUtils;
 import org.bleachhack.gui.clickgui.window.ClickGuiWindow;
 import org.bleachhack.gui.clickgui.window.ClickGuiWindow.Tooltip;
 import org.bleachhack.gui.window.Window;
 import org.bleachhack.gui.window.WindowScreen;
 
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.sound.PositionedSoundInstance;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.Text;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public abstract class ClickGuiScreen extends WindowScreen {
 
@@ -51,8 +50,8 @@ public abstract class ClickGuiScreen extends WindowScreen {
 		return false;
 	}
 
-	public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-		this.renderBackground(matrices);
+	public void render(DrawContext drawContext, int mouseX, int mouseY, float delta) {
+		this.renderBackground(drawContext, mouseX, mouseY, delta);
 
 		for (Window w : getWindows()) {
 			if (w instanceof ClickGuiWindow) {
@@ -60,10 +59,10 @@ public abstract class ClickGuiScreen extends WindowScreen {
 			}
 		}
 
-		super.render(matrices, mouseX, mouseY, delta);
+		super.render(drawContext, mouseX, mouseY, delta);
 
-		matrices.push();
-		matrices.translate(0, 0, 250);
+		drawContext.getMatrices().push();
+		drawContext.getMatrices().translate(0, 0, 250);
 
 		for (Window w : getWindows()) {
 			if (w instanceof ClickGuiWindow) {
@@ -88,11 +87,11 @@ public abstract class ClickGuiScreen extends WindowScreen {
 
 						int start = tooltipY - lines.size() * 10;
 						for (int l = 0; l < lines.size(); l++) {
-							fill(matrices, tooltip.x, start + (l * 10) - 1,
+							drawContext.fill(tooltip.x, start + (l * 10) - 1,
 									tooltip.x + textRenderer.getWidth(lines.get(l)) + 3,
 									start + (l * 10) + 9, 0xff000000);
 
-							textRenderer.drawWithShadow(matrices, lines.get(l), tooltip.x + 2, start + (l * 10), -1);
+							drawContext.drawTextWithShadow(textRenderer, lines.get(l), tooltip.x + 2, start + (l * 10), -1);
 						}
 
 						tooltipY -= lines.size() * 10;
@@ -101,21 +100,21 @@ public abstract class ClickGuiScreen extends WindowScreen {
 			}
 		}
 		
-		Window.fill(matrices, width / 2 - 50, -1, width / 2 - 2, 12,
+		Window.fill(drawContext, width / 2 - 50, -1, width / 2 - 2, 12,
 				mouseX >= width / 2 - 50 && mouseX <= width / 2 - 2 && mouseY >= 0 && mouseY <= 12 ? 0x60b070f0 : 0x60606090);
-		Window.fill(matrices, width / 2 + 2, -1, width / 2 + 50, 12,
+		Window.fill(drawContext, width / 2 + 2, -1, width / 2 + 50, 12,
 				mouseX >= width / 2 + 2 && mouseX <= width / 2 + 50 && mouseY >= 0 && mouseY <= 12 ? 0x60b070f0 : 0x60606090);
 
-		drawCenteredTextWithShadow(matrices, textRenderer, "Modules", width / 2 - 26, 2, 0xf0f0f0);
-		drawCenteredTextWithShadow(matrices, textRenderer, "UI", width / 2 + 26, 2, 0xf0f0f0);
+		drawContext.drawTextWithShadow(textRenderer, "Modules", width / 2 - 26, 2, 0xf0f0f0);
+		drawContext.drawTextWithShadow(textRenderer, "UI", width / 2 + 26, 2, 0xf0f0f0);
 		
 		if (warningOpacity > 3) {
-			drawCenteredTextWithShadow(matrices, textRenderer, "UI not available on the main menu!", width / 2, 17,
+			drawContext.drawTextWithShadow(textRenderer, "UI not available on the main menu!", width / 2, 17,
 					warningOpacity > 255 ? 0xd14a3b : (warningOpacity << 24) | 0xd14a3b);
 			warningOpacity -= 3;
 		}
 
-		matrices.pop();
+		drawContext.getMatrices().pop();
 
 		lmDown = false;
 		rmDown = false;
@@ -155,7 +154,7 @@ public abstract class ClickGuiScreen extends WindowScreen {
 
 	public boolean mouseScrolled(double mouseX, double mouseY, double amount) {
 		mwScroll = (int) amount;
-		return super.mouseScrolled(mouseX, mouseY, amount);
+		return super.mouseScrolled(mouseX, mouseY, amount, amount);
 	}
 	
 	private void tryOpen(Screen screen) {

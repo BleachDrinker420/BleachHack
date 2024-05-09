@@ -8,13 +8,18 @@
  */
 package org.bleachhack.mixin;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.screen.TitleScreen;
+import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.text.Text;
 import org.apache.commons.lang3.tuple.Triple;
 import org.bleachhack.BleachHack;
-import org.bleachhack.gui.AccountManagerScreen;
-import org.bleachhack.gui.BleachCreditsScreen;
-import org.bleachhack.gui.BleachOptionsScreen;
-import org.bleachhack.gui.BleachTitleScreen;
-import org.bleachhack.gui.UpdateScreen;
+import org.bleachhack.gui.*;
 import org.bleachhack.gui.clickgui.ModuleClickGuiScreen;
 import org.bleachhack.gui.window.WindowManagerScreen;
 import org.bleachhack.module.ModuleManager;
@@ -26,18 +31,6 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
-
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.screen.TitleScreen;
-import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-
-import net.minecraft.text.Text;
 
 @Mixin(TitleScreen.class)
 public class MixinTitleScreen extends Screen {

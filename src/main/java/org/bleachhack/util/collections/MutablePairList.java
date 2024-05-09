@@ -8,13 +8,13 @@
  */
 package org.bleachhack.util.collections;
 
+import org.apache.commons.lang3.tuple.MutablePair;
+
 import java.io.Serial;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
-
-import org.apache.commons.lang3.tuple.MutablePair;
 
 public class MutablePairList<L, R> extends ArrayList<MutablePair<L, R>> {
 

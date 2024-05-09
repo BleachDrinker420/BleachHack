@@ -8,8 +8,12 @@
  */
 package org.bleachhack.gui;
 
-import java.net.http.HttpResponse.BodyHandlers;
-
+import com.google.gson.JsonObject;
+import net.minecraft.client.gui.DrawContext;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.text.HoverEvent;
+import net.minecraft.text.Text;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.bleachhack.BleachHack;
 import org.bleachhack.gui.window.Window;
@@ -21,14 +25,7 @@ import org.bleachhack.util.collections.ImmutablePairList;
 import org.bleachhack.util.io.BleachJsonHelper;
 import org.bleachhack.util.io.BleachOnlineMang;
 
-import com.google.gson.JsonObject;
-
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.text.HoverEvent;
-
-import net.minecraft.text.Text;
+import java.net.http.HttpResponse.BodyHandlers;
 
 public class BleachCreditsScreen extends WindowScreen {
 
@@ -129,8 +126,8 @@ public class BleachCreditsScreen extends WindowScreen {
 						Text.literal(pair.getRight()).styled(s1 -> s1.withColor(color)))));
 	}
 
-	public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-		this.renderBackground(matrices);
+	public void render(DrawContext drawContext, int mouseX, int mouseY, float delta) {
+		this.renderBackground(drawContext, mouseX, mouseY, delta);
 		
 		if (!boostersLoaded && boosterList != null) {
 			int scroll = scrollbar.getPageOffset();
@@ -146,12 +143,12 @@ public class BleachCreditsScreen extends WindowScreen {
 			}
 		}
 
-		super.render(matrices, mouseX, mouseY, delta);
+		super.render(drawContext, mouseX, mouseY, delta);
 	}
 
 	public boolean mouseScrolled(double mouseX, double mouseY, double amount) {
 		scrollbar.moveScrollbar((int) -amount * 7);
 
-		return super.mouseScrolled(mouseX, mouseY, amount);
+		return super.mouseScrolled(mouseX, mouseY, amount, amount);
 	}
 }

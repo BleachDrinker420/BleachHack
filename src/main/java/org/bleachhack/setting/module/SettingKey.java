@@ -8,16 +8,15 @@
  */
 package org.bleachhack.setting.module;
 
+import net.minecraft.client.gui.DrawContext;
 import org.bleachhack.gui.clickgui.window.ModuleWindow;
 import org.bleachhack.module.Module;
 import org.bleachhack.setting.SettingDataHandlers;
 import org.lwjgl.glfw.GLFW;
 
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.client.util.InputUtil;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.sound.SoundEvents;
 
 public class SettingKey extends ModuleSetting<Integer> {
@@ -27,9 +26,9 @@ public class SettingKey extends ModuleSetting<Integer> {
 	}
 
 	@Override
-	public void render(ModuleWindow window, MatrixStack matrices, int x, int y, int len) {
+	public void render(ModuleWindow window, DrawContext drawContext, int x, int y, int len) {
 		if (window.mouseOver(x, y, x + len, y + 12)) {
-			DrawableHelper.fill(matrices, x + 1, y, x + len, y + 12, 0x70303070);
+			drawContext.fill(x + 1, y, x + len, y + 12, 0x70303070);
 		}
 		
 		if (window.keyDown >= 0 && window.keyDown != GLFW.GLFW_KEY_ESCAPE && window.mouseOver(x, y, x + len, y + 12)) {
@@ -45,8 +44,7 @@ public class SettingKey extends ModuleSetting<Integer> {
 		else if (name.isEmpty())
 			name = "NONE";
 
-		MinecraftClient.getInstance().textRenderer.drawWithShadow(
-				matrices, "Bind: " + name + (window.mouseOver(x, y, x + len, y + 12) ? "..." : ""), x + 3, y + 2, 0xcfe0cf);
+		drawContext.drawTextWithShadow(MinecraftClient.getInstance().textRenderer, "Bind: " + name + (window.mouseOver(x, y, x + len, y + 12) ? "..." : ""), x + 3, y + 2, 0xcfe0cf);
 	}
 
 	public SettingKey withDesc(String desc) {

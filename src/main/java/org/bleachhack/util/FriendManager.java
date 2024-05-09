@@ -8,14 +8,14 @@
  */
 package org.bleachhack.util;
 
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.Formatting;
+
 import java.util.Collection;
 import java.util.Locale;
 import java.util.Set;
 import java.util.TreeSet;
-
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.Formatting;
 
 public class FriendManager {
 

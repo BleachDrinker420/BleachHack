@@ -3,7 +3,6 @@ package org.bleachhack.mixin;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.RenderLayers;
-
 import org.bleachhack.BleachHack;
 import org.bleachhack.event.events.EventRenderBlock;
 import org.spongepowered.asm.mixin.Mixin;

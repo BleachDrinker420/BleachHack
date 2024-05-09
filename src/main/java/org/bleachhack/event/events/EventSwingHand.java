@@ -8,9 +8,8 @@
  */
 package org.bleachhack.event.events;
 
-import org.bleachhack.event.Event;
-
 import net.minecraft.util.Hand;
+import org.bleachhack.event.Event;
 
 public class EventSwingHand extends Event {
 

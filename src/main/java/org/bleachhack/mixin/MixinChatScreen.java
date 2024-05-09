@@ -8,14 +8,13 @@
  */
 package org.bleachhack.mixin;
 
+import net.minecraft.client.gui.screen.ChatScreen;
 import org.bleachhack.BleachHack;
 import org.bleachhack.event.events.EventKeyPress;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
-import net.minecraft.client.gui.screen.ChatScreen;
 
 @Mixin(ChatScreen.class)
 public class MixinChatScreen {

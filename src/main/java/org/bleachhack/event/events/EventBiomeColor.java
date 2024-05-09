@@ -8,10 +8,9 @@
  */
 package org.bleachhack.event.events;
 
-import org.bleachhack.event.Event;
-
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockRenderView;
+import org.bleachhack.event.Event;
 
 public class EventBiomeColor extends Event {
 

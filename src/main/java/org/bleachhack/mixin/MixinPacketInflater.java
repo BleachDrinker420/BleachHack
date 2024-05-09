@@ -1,8 +1,11 @@
 package org.bleachhack.mixin;
 
-import java.util.List;
-import java.util.zip.Inflater;
-
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.handler.codec.DecoderException;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.network.handler.PacketInflater;
 import org.bleachhack.module.ModuleManager;
 import org.bleachhack.module.mods.AntiChunkBan;
 import org.spongepowered.asm.mixin.Mixin;
@@ -11,12 +14,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.handler.codec.DecoderException;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.network.PacketInflater;
+import java.util.List;
+import java.util.zip.Inflater;
 
 @Mixin(PacketInflater.class)
 public class MixinPacketInflater {

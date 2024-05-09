@@ -67,7 +67,7 @@ public class AutoSign extends Module {
 			}
 
 			SignBlockEntity sign = ((SignEditScreen) event.getScreen()).blockEntity;
-			mc.player.networkHandler.sendPacket(new UpdateSignC2SPacket(sign.getPos(), text[0], text[1], text[2], text[3]));
+			mc.player.networkHandler.sendPacket(new UpdateSignC2SPacket(sign.getPos(), true, text[0], text[1], text[2], text[3]));
 		}
 	}
 }

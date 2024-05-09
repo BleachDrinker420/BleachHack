@@ -8,6 +8,7 @@
  */
 package org.bleachhack.module.mods;
 
+import net.minecraft.block.entity.SignText;
 import org.bleachhack.command.Command;
 import org.bleachhack.event.events.EventBlockEntityRender;
 import org.bleachhack.event.events.EventEntityRender;
@@ -158,7 +159,7 @@ public class NoRender extends Module {
 
 				if (signSetting.getChild(0).asMode().getMode() == 2) {
 					for (int i = 0; i < 4; i++) {
-						sign.setTextOnRow(i, signText[i]);
+						sign.setText((SignText) signText[i], true);
 					}
 				}
 
@@ -203,7 +204,7 @@ public class NoRender extends Module {
 			if (opacity != 0) {
 				int opacity2 = (int) (opacity * 0.93);
 				Window.verticalGradient(
-						event.getMatrices(),
+						event.context,
 						0, 0,
 						mc.currentScreen.width, mc.currentScreen.height,
 						(opacity2 << 24) | 0x101010,

@@ -8,6 +8,8 @@
  */
 package org.bleachhack.mixin;
 
+import net.minecraft.client.render.Camera;
+import net.minecraft.client.render.CameraSubmersionType;
 import org.bleachhack.module.Module;
 import org.bleachhack.module.ModuleManager;
 import org.bleachhack.module.mods.BetterCamera;
@@ -18,9 +20,6 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
-import net.minecraft.client.render.Camera;
-import net.minecraft.client.render.CameraSubmersionType;
 
 @Mixin(Camera.class)
 public class MixinCamera {

@@ -8,6 +8,9 @@
  */
 package org.bleachhack.mixin;
 
+import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.gui.hud.InGameHud;
+import net.minecraft.util.Identifier;
 import org.bleachhack.BleachHack;
 import org.bleachhack.event.events.EventRenderCrosshair;
 import org.bleachhack.event.events.EventRenderInGameHud;
@@ -19,38 +22,34 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import net.minecraft.client.gui.hud.InGameHud;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.util.Identifier;
-
 @Mixin(InGameHud.class)
 public class MixinInGameHud {
 
 	@Unique private boolean bypassRenderOverlay = false;
 	@Unique private boolean bypassRenderCrosshair = false;
 
-	@Shadow private void renderOverlay(MatrixStack matrices, Identifier texture, float opacity) {}
-	@Shadow private void renderCrosshair(MatrixStack matrices) {}
+	@Shadow private void renderOverlay(DrawContext context, Identifier texture, float opacity) {}
+	@Shadow private void renderCrosshair(DrawContext context) {}
 
 	@Inject(method = "render", at = @At("RETURN"), cancellable = true)
-	private void render(MatrixStack matrixStack, float tickDelta, CallbackInfo info) {
-		EventRenderInGameHud event = new EventRenderInGameHud(matrixStack);
+	private void render(DrawContext context, float tickDelta, CallbackInfo ci) {
+		EventRenderInGameHud event = new EventRenderInGameHud(context);
 		BleachHack.eventBus.post(event);
 
 		if (event.isCancelled()) {
-			info.cancel();
+			ci.cancel();
 		}
 	}
 
 	@Inject(method = "renderOverlay", at = @At("HEAD"), cancellable = true)
-	private void renderOverlay(MatrixStack matrices, Identifier texture, float opacity, CallbackInfo ci) {
+	private void renderOverlay(DrawContext context, Identifier texture, float opacity, CallbackInfo ci) {
 		if (!bypassRenderOverlay) {
-			EventRenderOverlay event = new EventRenderOverlay(matrices, texture, opacity);
+			EventRenderOverlay event = new EventRenderOverlay(context, texture, opacity);
 			BleachHack.eventBus.post(event);
 
 			if (!event.isCancelled()) {
 				bypassRenderOverlay = true;
-				renderOverlay(matrices, event.getTexture(), event.getOpacity());
+				renderOverlay(context, event.getTexture(), event.getOpacity());
 				bypassRenderOverlay = false;
 			}
 
@@ -60,18 +59,18 @@ public class MixinInGameHud {
 
 
 	@Inject(method = "renderCrosshair", at = @At("HEAD"), cancellable = true)
-	private void renderCrosshair(MatrixStack matrices, CallbackInfo callback) {
+	private void renderCrosshair(DrawContext context, CallbackInfo ci) {
 		if (!bypassRenderCrosshair) {
-			EventRenderCrosshair event = new EventRenderCrosshair(matrices);
+			EventRenderCrosshair event = new EventRenderCrosshair(context);
 			BleachHack.eventBus.post(event);
 
 			if (!event.isCancelled()) {
 				bypassRenderCrosshair = true;
-				renderCrosshair(event.getMatrices());
+				renderCrosshair(context);
 				bypassRenderCrosshair = false;
 			}
 
-			callback.cancel();
+			ci.cancel();
 		}
 	}
 }

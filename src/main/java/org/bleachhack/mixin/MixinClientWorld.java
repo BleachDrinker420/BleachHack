@@ -8,6 +8,10 @@
  */
 package org.bleachhack.mixin;
 
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.render.DimensionEffects;
+import net.minecraft.client.world.ClientWorld;
+import net.minecraft.util.math.Vec3d;
 import org.bleachhack.BleachHack;
 import org.bleachhack.event.events.EventSkyRender;
 import org.bleachhack.event.events.EventTick;
@@ -20,11 +24,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.DimensionEffects;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.util.math.Vec3d;
 
 @Mixin(ClientWorld.class)
 public class MixinClientWorld {

@@ -8,11 +8,10 @@
  */
 package org.bleachhack.event.events;
 
-import org.bleachhack.event.Event;
-
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.util.math.BlockPos;
+import org.bleachhack.event.Event;
 
 public class EventRenderFluid extends Event {
 

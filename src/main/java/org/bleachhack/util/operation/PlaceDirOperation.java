@@ -8,15 +8,14 @@
  */
 package org.bleachhack.util.operation;
 
-import org.apache.commons.lang3.ArrayUtils;
-import org.bleachhack.util.InventoryUtils;
-import org.bleachhack.util.world.WorldUtils;
-
 import net.minecraft.item.Item;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Direction.Axis;
+import net.minecraft.util.math.Vec3d;
+import org.apache.commons.lang3.ArrayUtils;
+import org.bleachhack.util.InventoryUtils;
+import org.bleachhack.util.world.WorldUtils;
 
 /**
  * THIS DOES NOT PLACE A BLOCK ON A SPECIFIC SIDE OF A BLOCK!!
