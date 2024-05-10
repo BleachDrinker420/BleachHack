@@ -94,12 +94,12 @@ public class UI extends Module {
 		UIContainer container = UIClickGuiScreen.INSTANCE.getUIContainer();
 
 		// Modulelist
-		/*container.windows.put("modulelist",
+		container.windows.put("modulelist",
 				new UIWindow(new Position("l", 1, "t", 2), container,
 						() -> getSetting(0).asToggle().getState(),
 						this::getModuleListSize,
 						this::drawModuleList)
-				);*/
+				);
 
 		// Info
 		container.windows.put("coords",
@@ -152,7 +152,7 @@ public class UI extends Module {
 				);
 
 		// Players
-		/*container.windows.put("players",
+		container.windows.put("players",
 				new UIWindow(new Position("l", 1, "modulelist", 2), container,
 						() -> getSetting(8).asToggle().getState(),
 						this::getPlayerSize,
@@ -181,7 +181,7 @@ public class UI extends Module {
 						() -> getSetting(11).asToggle().getState(),
 						this::getInventorySize,
 						this::drawInventory)
-				);*/
+				);
 	}
 
 	@BleachSubscribe
@@ -201,7 +201,7 @@ public class UI extends Module {
 			if (watermarkMode == 0) {
 				moduleListText.add(0, BleachHack.watermark.getText().append(Text.literal(" " + BleachHack.VERSION).styled(s -> s.withColor(TextColor.fromRgb(0xf0f0f0)))));
 			} else {
-				moduleListText.add(0, Text.literal("\u00a7a> BleachHack " + BleachHack.VERSION));
+				moduleListText.add(0, Text.literal("§a> BleachHack " + BleachHack.VERSION));
 			}
 		}
 
@@ -347,7 +347,7 @@ public class UI extends Module {
 
 			String text =
 					e.getDisplayName().getString()
-					+ " \u00a77|\u00a7r " +
+					+ " §7|§r " +
 					e.getBlockPos().getX() + " " + e.getBlockPos().getY() + " " + e.getBlockPos().getZ()
 					+ " (" + dist + "m)";
 

@@ -136,7 +136,7 @@ public class NotebotUtils {
 						String[] split = s.split(":");
 						notes.put(Integer.parseInt(split[0]), new Note(Integer.parseInt(split[1]), Integer.parseInt(split[2])));
 					} catch (NumberFormatException | IndexOutOfBoundsException e) {
-						BleachLogger.warn("Error trying to parse note: \u00a7o" + s);
+						BleachLogger.warn("Error trying to parse note: §o" + s);
 					}
 				}
 			}

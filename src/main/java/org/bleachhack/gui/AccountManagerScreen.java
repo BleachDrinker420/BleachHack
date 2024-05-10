@@ -82,7 +82,7 @@ public class AccountManagerScreen extends WindowScreen {
 			}
 
 			AuthenticationException exception = account.login();
-			loginResult.setText(Text.literal(exception == null ? "\u00a7aLogin Successful!" : "\u00a7c" + exception.getMessage()));
+			loginResult.setText(Text.literal(exception == null ? "§aLogin Successful!" : "§c" + exception.getMessage()));
 			account.success = exception == null ? 2 : 1;
 			saveAccounts();
 		}));
@@ -105,11 +105,11 @@ public class AccountManagerScreen extends WindowScreen {
 		}
 
 		mainWindow.addWidget(new WindowTextWidget("Accounts", true, 6, 17, 0xf0f0f0));
-		mainWindow.addWidget(new WindowButtonWidget(listW - 14, 14, listW - 2, 26, "\u00a7a+", () -> {
+		mainWindow.addWidget(new WindowButtonWidget(listW - 14, 14, listW - 2, 26, "§a+", () -> {
 			selectWindow(1);
 			removeWindow(2);
 		}));
-		mainWindow.addWidget(new WindowButtonWidget(listW - 29, 14, listW - 17, 26, "\u00a7c-", () -> {
+		mainWindow.addWidget(new WindowButtonWidget(listW - 29, 14, listW - 17, 26, "§c-", () -> {
 			if (selected >= 0 && selected < accounts.size()) {
 				accounts.remove(selected);
 				selected = -1;
@@ -118,7 +118,7 @@ public class AccountManagerScreen extends WindowScreen {
 				saveAccounts();
 			}
 		}).withRenderEvent((wg, ms, wx, wy)
-				-> ((WindowButtonWidget) wg).text = selected >= 0 && selected < accounts.size() ? "\u00a7c-" : "\u00a77-"));
+				-> ((WindowButtonWidget) wg).text = selected >= 0 && selected < accounts.size() ? "§c-" : "§7-"));
 
 		// Select type to add window
 		Window typeWindow = addWindow(new Window(
@@ -141,7 +141,7 @@ public class AccountManagerScreen extends WindowScreen {
 		drawContext.drawTextWithShadow(textRenderer, "Fabric: " + FabricLoader.getInstance().getModContainer("fabricloader").get().getMetadata().getVersion().getFriendlyString(),
 				4, height - 30, -1);
 		drawContext.drawTextWithShadow(textRenderer, "Minecraft: " + SharedConstants.getGameVersion().getName(), 4, height - 20, -1);
-		drawContext.drawTextWithShadow(textRenderer, "Logged in as: \u00a7a" + client.getSession().getUsername(), 4, height - 10, -1);
+		drawContext.drawTextWithShadow(textRenderer, "Logged in as: §a" + client.getSession().getUsername(), 4, height - 10, -1);
 
 		hovered = -1;
 		super.render(drawContext, mouseX, mouseY, delta);
@@ -205,13 +205,13 @@ public class AccountManagerScreen extends WindowScreen {
 		}
 
 		double pixelSize = ((height - 6) / 10d) * 0.625;
-		drawContext.drawTextWithShadow(textRenderer, "\u00a77Name: " + acc.username,
+		drawContext.drawTextWithShadow(textRenderer, "§7Name: " + acc.username,
 				extendText ? (int) (x + height + pixelSize * 10 + 3) : x + height, y + 4, -1);
-		drawContext.drawTextWithShadow(textRenderer, "\u00a7eNo Auth",
+		drawContext.drawTextWithShadow(textRenderer, "§eNo Auth",
 				extendText ? (int) (x + height + pixelSize * 10 + 3) : x + height, y + height - 11, -1);
 
 		if (acc.type != AccountType.NO_AUTH) {
-			drawContext.drawTextWithShadow(textRenderer, (acc.success == 0 ? "\u00a76?" : acc.success == 1 ? "\u00a7cx" : "\u00a7a+"),
+			drawContext.drawTextWithShadow(textRenderer, (acc.success == 0 ? "§6?" : acc.success == 1 ? "§cx" : "§a+"),
 					x + width - 10, y + height - 11, -1);
 		}
 	}
@@ -285,7 +285,7 @@ public class AccountManagerScreen extends WindowScreen {
 				addAccount(account);
 				getWindow(2).closed = true;
 			} catch (AuthenticationException e) {
-				result.setText(Text.literal("\u00a7c" + e.getMessage()));
+				result.setText(Text.literal("§c" + e.getMessage()));
 			}
 		}));
 	}

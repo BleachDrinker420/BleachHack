@@ -109,7 +109,7 @@ public class CommandManager {
 				} catch (CmdSyntaxException e) {
 					BleachLogger.error(e.getMessage());
 
-					MutableText text = Text.literal(Command.getPrefix() + c.getAliases()[0] + ": \u00a7f" + c.getDescription())
+					MutableText text = Text.literal(Command.getPrefix() + c.getAliases()[0] + ": §f" + c.getDescription())
 							.styled(s -> s.withColor(BleachLogger.INFO_COLOR));
 
 					BleachLogger.info(
@@ -118,8 +118,8 @@ public class CommandManager {
 				} catch (Exception e) {
 					e.printStackTrace();
 
-					BleachLogger.error("\u00a7l> " + e.getClass().getSimpleName());
-					BleachLogger.error("\u00a7l> \u00a7c" + e.getMessage());
+					BleachLogger.error("§l> " + e.getClass().getSimpleName());
+					BleachLogger.error("§l> §c" + e.getMessage());
 
 					int i = 0;
 					for (StackTraceElement st: e.getStackTrace()) {

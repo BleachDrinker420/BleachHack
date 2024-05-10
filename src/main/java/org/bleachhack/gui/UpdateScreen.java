@@ -72,7 +72,7 @@ public class UpdateScreen extends WindowScreen {
 				if (je.isJsonPrimitive()) {
 					String string = je.getAsString();
 					if (string.charAt(0) == '-')
-						string = "\u00a77-\u00a7r" + string.substring(1);
+						string = "§7-§r" + string.substring(1);
 
 					List<StringVisitable> wrapped = client.textRenderer.getTextHandler().wrapLines(string, w - 32, Style.EMPTY);
 					for (int i = 0; i < wrapped.size(); i++)

@@ -87,8 +87,8 @@ public class AutoReconnect extends Module {
 			int startTime = (int) (getSetting(0).asToggle().getChild(0).asSlider().getValue() * 1000);
 			reconnectButton.setMessage(Text.literal(
 					getSetting(0).asToggle().getState()
-					? "\u00a7aAutoReconnect [" + (reconnectTime + startTime - System.currentTimeMillis()) + "]"
-							: "\u00a7cAutoReconnect [" + startTime + "]"));
+					? "§aAutoReconnect [" + (reconnectTime + startTime - System.currentTimeMillis()) + "]"
+							: "§cAutoReconnect [" + startTime + "]"));
 
 			if (reconnectTime + startTime < System.currentTimeMillis() && getSetting(0).asToggle().getState()) {
 				if (server != null)

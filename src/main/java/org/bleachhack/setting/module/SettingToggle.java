@@ -38,7 +38,7 @@ public class SettingToggle extends ModuleSetting<Boolean> {
 	}
 
 	public void render(ModuleWindow window, DrawContext drawContext, int x, int y, int len) {
-		String color2 = getValue() ? "\u00a7a" : "\u00a7c";
+		String color2 = getValue() ? "§a" : "§c";
 
 		if (window.mouseOver(x, y, x + len, y + 12)) {
 			drawContext.fill(x + 1, y, x + len, y + 12, 0x70303070);
@@ -62,13 +62,13 @@ public class SettingToggle extends ModuleSetting<Boolean> {
 			}
 
 			if (expanded) {
-				drawContext.drawTextWithShadow(MinecraftClient.getInstance().textRenderer, color2 + "\u2228",
+				drawContext.drawTextWithShadow(MinecraftClient.getInstance().textRenderer, color2 + "∨",
 						x + len - 8, y + 3, -1);
 			} else {
 				drawContext.getMatrices().push();
 
 				drawContext.getMatrices().scale(0.75f, 0.75f, 1f);
-				drawContext.drawTextWithShadow(MinecraftClient.getInstance().textRenderer, color2 + "\u00a7l>",
+				drawContext.drawTextWithShadow(MinecraftClient.getInstance().textRenderer, color2 + "§l>",
 						(int) ((x + len - 7) * 1 / 0.75), (int) ((y + 4) * 1 / 0.75), -1);
 
 				drawContext.getMatrices().pop();

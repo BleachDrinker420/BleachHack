@@ -68,12 +68,12 @@ public class CmdFriends extends Command {
 					.append(Text.literal("\n> " + f + spaces)
 							.styled(style -> style
 									.withColor(BleachLogger.INFO_COLOR)))
-					.append(Text.literal("\u00a7c[Del]")
+					.append(Text.literal("§c[Del]")
 							.styled(style -> style
 									.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Text.literal("Remove " + f + " from your friendlist")))
 									.withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, getPrefix() + "friends remove " + f))))
 					.append("   ")
-					.append(Text.literal("\u00a73[NameMC]")
+					.append(Text.literal("§3[NameMC]")
 							.styled(style -> style
 									.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Text.literal("Open NameMC page of " + f)))
 									.withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://namemc.com/profile/" + f))));

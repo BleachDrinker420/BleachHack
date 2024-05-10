@@ -116,9 +116,9 @@ public class NotebotScreen extends WindowScreen {
 				drawContext.drawTextWithShadow(textRenderer,  entry.name, textX, y + 8, 0xffffff);
 				drawContext.drawTextWithShadow(textRenderer, "By: " + entry.author, textX, y + 18, 0xb0b0b0);
 
-				drawContext.drawTextWithShadow(textRenderer,"Format: \u00a7a" + entry.format, textX, y + 35, 0xb0b0b0);
-				drawContext.drawTextWithShadow(textRenderer, "Length: \u00a7f" +  entry.length / 20 + "s", textX, y + 45, 0xb0b0b0);
-				//drawCenteredText(matrices, textRenderer, "Notes: \u00a7f" + entry.notes.size(), textX, y + 55, 0xb0b0b0);
+				drawContext.drawTextWithShadow(textRenderer,"Format: §a" + entry.format, textX, y + 35, 0xb0b0b0);
+				drawContext.drawTextWithShadow(textRenderer, "Length: §f" +  entry.length / 20 + "s", textX, y + 45, 0xb0b0b0);
+				//drawCenteredText(matrices, textRenderer, "Notes: §f" + entry.notes.size(), textX, y + 55, 0xb0b0b0);
 				drawContext.drawTextWithShadow(textRenderer, "Noteblocks: ", textX, y + 62, 0x80f080);
 
 				int c2 = 0;

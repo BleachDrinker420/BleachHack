@@ -221,7 +221,7 @@ public abstract class SettingList<T> extends ModuleSetting<LinkedHashSet<T>> {
 			renderItem(client, drawContext, item, x, y, height, height);
 
 			drawContext.drawTextWithShadow(textRenderer, getName(item), x + height + 4, y + 4, -1);
-			drawContext.drawTextWithShadow(textRenderer, "\u00a7cx", x + width - 10, y + 5, -1);
+			drawContext.drawTextWithShadow(textRenderer, "§cx", x + width - 10, y + 5, -1);
 		}
 
 		private void drawSearchEntry(DrawContext drawContext, T item, int x, int y, int width, int height, int mouseX, int mouseY) {

@@ -33,15 +33,15 @@ public class CmdEntityStats extends Command {
 				AbstractHorseEntity h = (AbstractHorseEntity) mc.player.getVehicle();
 
 				BleachLogger.info("Entity Stats:");
-				BleachLogger.info("\u00a7cMax Health: \u00a7r" + (int) h.getMaxHealth() + " HP");
-				BleachLogger.info("\u00a7cSpeed: \u00a7r" + getSpeed(h) + " m/s");
-				BleachLogger.info("\u00a7cJump: \u00a7r" + getJumpHeight(h) + " m");
+				BleachLogger.info("§cMax Health: §r" + (int) h.getMaxHealth() + " HP");
+				BleachLogger.info("§cSpeed: §r" + getSpeed(h) + " m/s");
+				BleachLogger.info("§cJump: §r" + getJumpHeight(h) + " m");
 			} else if (mc.player.getVehicle() instanceof LivingEntity) {
 				LivingEntity l = (LivingEntity) mc.player.getVehicle();
 
 				BleachLogger.info("Entity Stats:");
-				BleachLogger.info("\u00a7cMax Health: \u00a7r" + (int) l.getMaxHealth() + " HP");
-				BleachLogger.info("\u00a7cSpeed: \u00a7r" + getSpeedLiving(l) + " m/s");
+				BleachLogger.info("§cMax Health: §r" + (int) l.getMaxHealth() + " HP");
+				BleachLogger.info("§cSpeed: §r" + getSpeedLiving(l) + " m/s");
 			} else {
 				BleachLogger.error("Current vehicle doesn't have stats.");
 			}

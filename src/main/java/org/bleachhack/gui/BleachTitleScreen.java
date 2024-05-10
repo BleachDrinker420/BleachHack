@@ -135,7 +135,7 @@ public class BleachTitleScreen extends WindowScreen {
 		// Update Text
 		JsonObject updateJson = BleachHack.getUpdateJson();
 		if (updateJson != null && updateJson.has("version") && updateJson.get("version").getAsInt() > BleachHack.INTVERSION) {
-			getWindow(0).addWidget(new WindowTextWidget("\u00a76\u00a7nUpdate\u00a76", true, 4, h - 12, 0xffffff)
+			getWindow(0).addWidget(new WindowTextWidget("§6§nUpdate§6", true, 4, h - 12, 0xffffff)
 					.withClickEvent((widget, mx, my, wx, wy) ->
 						client.setScreen(new UpdateScreen(client.currentScreen, updateJson))
 					));
@@ -151,7 +151,7 @@ public class BleachTitleScreen extends WindowScreen {
 		drawContext.drawTextWithShadow(textRenderer, "Fabric: " + FabricLoader.getInstance().getModContainer("fabricloader").get().getMetadata().getVersion().getFriendlyString(),
 				4, height - 30, -1);
 		drawContext.drawTextWithShadow(textRenderer, "Minecraft: " + SharedConstants.getGameVersion().getName(), 4, height - 20, -1);
-		drawContext.drawTextWithShadow(textRenderer, "Logged in as: \u00a7a" + client.getSession().getUsername(), 4, height - 10, -1);
+		drawContext.drawTextWithShadow(textRenderer, "Logged in as: §a" + client.getSession().getUsername(), 4, height - 10, -1);
 
 		super.render(drawContext, mouseX, mouseY, delta);
 

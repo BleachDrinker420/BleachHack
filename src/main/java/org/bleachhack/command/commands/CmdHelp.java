@@ -41,7 +41,7 @@ public class CmdHelp extends Command {
 			if (!cmd.isEmpty() && Stream.of(c.getAliases()).noneMatch(cmd::equalsIgnoreCase))
 				continue;
 
-			MutableText text = Text.literal(getPrefix() + c.getAliases()[0] + ": \u00a7f" + c.getDescription())
+			MutableText text = Text.literal(getPrefix() + c.getAliases()[0] + ": §f" + c.getDescription())
 					.styled(s -> s.withColor(BleachLogger.INFO_COLOR));
 
 			BleachLogger.noPrefix(

@@ -145,19 +145,19 @@ public class LogoutSpot extends Module {
 						.rotateY((float) -Math.toRadians(mc.player.getYaw() + 90));
 
 				List<String> lines = new ArrayList<>();
-				lines.add("\u00a74Logout:");
+				lines.add("§4Logout:");
 
 				if (getSetting(1).asToggle().getChild(0).asToggle().getState())
-					lines.add("\u00a7c" + player.getDisplayName().getString());
+					lines.add("§c" + player.getDisplayName().getString());
 
 				if (getSetting(1).asToggle().getChild(1).asToggle().getState())
-					lines.add("\u00a7c" + (int) player.getX() + " " + (int) player.getY() + " " + (int) player.getZ());
+					lines.add("§c" + (int) player.getX() + " " + (int) player.getY() + " " + (int) player.getZ());
 
 				if (getSetting(1).asToggle().getChild(2).asToggle().getState())
-					lines.add("\u00a7c" + (int) Math.ceil(player.getHealth() + player.getAbsorptionAmount()) + "hp");
+					lines.add("§c" + (int) Math.ceil(player.getHealth() + player.getAbsorptionAmount()) + "hp");
 
 				if (getSetting(1).asToggle().getChild(3).asToggle().getState())
-					lines.add("\u00a7c" + getTimeElapsed(playerPair.getRight()));
+					lines.add("§c" + getTimeElapsed(playerPair.getRight()));
 
 				for (int i = 0; i < lines.size(); i++) {
 					WorldRenderer.drawText(Text.literal(lines.get(i)), rVec.x + offset.x, rVec.y + 0.1 - i * 0.25, rVec.z + offset.z, 1, true);

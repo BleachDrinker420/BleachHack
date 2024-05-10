@@ -99,7 +99,7 @@ public class EntityMenuEditScreen extends WindowScreen {
 			boolean mouseOverAdd = mouseX >= seperator - 16 && mouseX <= seperator - 3 && mouseY >= y + 3 && mouseY <= y + 15;
 			Window.fill(drawContext, seperator - 16, y + 3, seperator - 3, y + 15,
 					mouseOverAdd ? 0x4fb070f0 : 0x60606090);
-			drawContext.drawTextWithShadow(textRenderer, "\u00a7a+", seperator - 12, y + 5, 0xffffff);
+			drawContext.drawTextWithShadow(textRenderer, "§a+", seperator - 12, y + 5, 0xffffff);
 
 			if (mouseOverAdd) {
 				addEntry = true;
@@ -115,7 +115,7 @@ public class EntityMenuEditScreen extends WindowScreen {
 
 				Window.fill(drawContext, x + 3, y + 17, seperator - 2, y + 33,
 						mouseOver ? 0x4fb070f0 : 0x50606090);
-				drawContext.drawTextWithShadow(textRenderer, "\u00a7a\u00a7l^", x + (seperator - x) / 2, y + 21, 0xffffff);
+				drawContext.drawTextWithShadow(textRenderer, "§a§l^", x + (seperator - x) / 2, y + 21, 0xffffff);
 
 				entries++;
 				if (mouseOver) {
@@ -128,7 +128,7 @@ public class EntityMenuEditScreen extends WindowScreen {
 
 				Window.fill(drawContext, x + 3, y + 17 + (maxEntries * 17), seperator - 2, y + 33 + (maxEntries * 17),
 						mouseOver ? 0x4fb070f0 : 0x50606090);
-				drawContext.drawTextWithShadow(textRenderer, "\u00a7a\u00a7lv", x + (seperator - x) / 2, y + 21 + (maxEntries * 17), 0xffffff);
+				drawContext.drawTextWithShadow(textRenderer, "§a§lv", x + (seperator - x) / 2, y + 21 + (maxEntries * 17), 0xffffff);
 
 				maxEntries--;
 				if (mouseOver) {

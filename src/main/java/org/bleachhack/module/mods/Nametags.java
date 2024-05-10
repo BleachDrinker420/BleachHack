@@ -111,7 +111,7 @@ public class Nametags extends Module {
 		uuidCache.clear();
 
 		cacheCopy.forEach((u, s) -> {
-			if (!s.startsWith("\u00a7c")) uuidCache.put(u, s);
+			if (!s.startsWith("§c")) uuidCache.put(u, s);
 		});
 
 		super.onDisable(inWorld);
@@ -441,7 +441,7 @@ public class Nametags extends Module {
 
 				if (!json.isJsonArray()) {
 					BleachLogger.logger.error("[Nametags] Invalid Owner UUID: " + uuid);
-					return "\u00a7c[Invalid]";
+					return "§c[Invalid]";
 				}
 
 				JsonArray ja = json.getAsJsonArray();
@@ -449,7 +449,7 @@ public class Nametags extends Module {
 				return ja.get(ja.size() - 1).getAsJsonObject().get("name").getAsString();
 			} catch (IOException e) {
 				BleachLogger.logger.error("[Nametags] Error Getting Owner UUID: " + uuid);
-				return "\u00a7c[Error]";
+				return "§c[Error]";
 			}
 		}));
 	}
