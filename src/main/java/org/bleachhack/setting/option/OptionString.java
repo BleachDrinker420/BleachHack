@@ -2,7 +2,6 @@ package org.bleachhack.setting.option;
 
 import java.util.function.Function;
 
-import net.minecraft.client.gui.DrawContext;
 import org.bleachhack.gui.window.widget.WindowTextFieldWidget;
 import org.bleachhack.gui.window.widget.WindowWidget;
 import org.bleachhack.setting.SettingDataHandlers;

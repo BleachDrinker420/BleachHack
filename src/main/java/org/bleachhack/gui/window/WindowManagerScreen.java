@@ -11,7 +11,6 @@ package org.bleachhack.gui.window;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.Element;
-import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import org.apache.commons.lang3.tuple.Triple;

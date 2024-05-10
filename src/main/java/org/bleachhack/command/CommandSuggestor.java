@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-import net.minecraft.client.gui.DrawContext;
 import org.bleachhack.BleachHack;
 import org.bleachhack.event.events.EventKeyPress;
 import org.bleachhack.event.events.EventOpenScreen;

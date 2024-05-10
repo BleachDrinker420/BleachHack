@@ -31,7 +31,6 @@ import org.bleachhack.gui.window.WindowScreen;
 import org.bleachhack.gui.window.widget.*;
 import org.bleachhack.util.BleachLogger;
 import org.bleachhack.util.auth.LoginCrypter;
-import org.bleachhack.util.auth.LoginHelper;
 import org.bleachhack.util.io.BleachFileMang;
 
 import java.net.URL;
