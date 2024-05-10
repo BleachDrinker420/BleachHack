@@ -39,7 +39,7 @@ public class CmdServer extends Command {
 	}
 
 	@Override
-	public void onCommand(String alias, String[] args) throws Exception {
+	public void onCommand(String alias, String[] args) throws CmdSyntaxException {
 		boolean sp = mc.isIntegratedServerRunning();
 
 		if (!sp && mc.getCurrentServerEntry() == null) {
@@ -146,7 +146,7 @@ public class CmdServer extends Command {
 		if (singleplayer)
 			return "Integrated Server";
 
-		return mc.player.getServerBrand() != null ? mc.player.getServerBrand() : "Unknown";
+		return mc.getNetworkHandler().getBrand() != null ? mc.getNetworkHandler().getBrand() : "unknown";
 	}
 
 	public String getDay(boolean singleplayer) {

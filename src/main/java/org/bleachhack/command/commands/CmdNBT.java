@@ -8,6 +8,7 @@
  */
 package org.bleachhack.command.commands;
 
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.bleachhack.command.Command;
@@ -37,7 +38,7 @@ public class CmdNBT extends Command {
 	}
 
 	@Override
-	public void onCommand(String alias, String[] args) throws Exception {
+	public void onCommand(String alias, String[] args) throws CmdSyntaxException, CommandSyntaxException {
 		if (args.length == 0) {
 			throw new CmdSyntaxException();
 		}
@@ -97,7 +98,7 @@ public class CmdNBT extends Command {
 		}
 	}
 
-	private NbtCompound getNbt(String arg) {
+	private NbtCompound getNbt(String arg) throws CmdSyntaxException {
 		if (arg.equalsIgnoreCase("hand")) {
 			return mc.player.getMainHandStack().getOrCreateNbt();
 		} else if (arg.equalsIgnoreCase("block")) {

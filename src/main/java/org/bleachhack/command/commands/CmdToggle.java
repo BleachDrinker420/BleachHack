@@ -23,7 +23,7 @@ public class CmdToggle extends Command {
 	}
 
 	@Override
-	public void onCommand(String alias, String[] args) throws Exception {
+	public void onCommand(String alias, String[] args) throws CmdSyntaxException {
 		if (args.length != 1) {
 			throw new CmdSyntaxException();
 		}

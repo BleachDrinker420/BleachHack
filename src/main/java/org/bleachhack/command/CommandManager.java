@@ -107,7 +107,7 @@ public class CommandManager {
 				try {
 					c.onCommand(split[0], ArrayUtils.subarray(split, 1, split.length));
 				} catch (CmdSyntaxException e) {
-					BleachLogger.error(e.getTextMessage());
+					BleachLogger.error(e.getMessage());
 
 					MutableText text = Text.literal(Command.getPrefix() + c.getAliases()[0] + ": \u00a7f" + c.getDescription())
 							.styled(s -> s.withColor(BleachLogger.INFO_COLOR));

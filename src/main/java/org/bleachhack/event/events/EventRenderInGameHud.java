@@ -19,7 +19,7 @@ public class EventRenderInGameHud extends Event {
 		this.context = context;
 	}
 
-	public DrawContext getMatrix() {
+	public DrawContext getContext() {
 		return context;
 	}
 }

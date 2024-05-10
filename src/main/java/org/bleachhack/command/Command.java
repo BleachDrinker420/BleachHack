@@ -12,6 +12,7 @@ import net.minecraft.client.MinecraftClient;
 
 import net.minecraft.text.Text;
 import org.apache.commons.lang3.ArrayUtils;
+import org.bleachhack.command.exception.CmdSyntaxException;
 import org.bleachhack.setting.option.Option;
 import org.bleachhack.util.BleachLogger;
 

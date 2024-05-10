@@ -270,7 +270,7 @@ public class UI extends Module {
 
 		UIContainer container = UIClickGuiScreen.INSTANCE.getUIContainer();
 		container.updatePositions(mc.getWindow().getScaledWidth(), mc.getWindow().getScaledHeight());
-		container.render(event.getMatrix());
+		container.render(event.getContext());
 	}
 
 	// --- Module List

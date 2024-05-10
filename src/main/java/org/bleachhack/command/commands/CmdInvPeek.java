@@ -8,7 +8,7 @@
  */
 package org.bleachhack.command.commands;
 
-import net.minecraft.client.gui.DrawableHelper;
+import net.minecraft.client.gui.DrawContext;
 import org.bleachhack.command.Command;
 import org.bleachhack.command.CommandCategory;
 import org.bleachhack.command.exception.CmdSyntaxException;
@@ -20,7 +20,6 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.screen.ingame.InventoryScreen;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.GameRenderer;
-import net.minecraft.client.util.math.MatrixStack;
 
 public class CmdInvPeek extends Command {
 
@@ -30,7 +29,7 @@ public class CmdInvPeek extends Command {
 	}
 
 	@Override
-	public void onCommand(String alias, String[] args) throws Exception {
+	public void onCommand(String alias, String[] args) throws CmdSyntaxException {
 		if (args.length == 0) {
 			throw new CmdSyntaxException();
 		}
@@ -45,12 +44,13 @@ public class CmdInvPeek extends Command {
 							return false;
 						}
 
-						protected void drawBackground(MatrixStack matrices, float delta, int mouseX, int mouseY) {
+						protected void drawBackground(DrawContext drawContext, float delta, int mouseX, int mouseY) {
 							RenderSystem.setShader(GameRenderer::getPositionTexProgram);
 							RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 							RenderSystem.setShaderTexture(0, BACKGROUND_TEXTURE);
-							drawTexture(matrices, x, y, 0, 0, this.backgroundWidth, this.backgroundHeight);
-							drawEntity(matrices, x + 51, y + 75, 30, (float) (x + 51) - mouseX, (float) (y + 75 - 50) - mouseY, this.client.player);
+							drawContext.drawTexture(BACKGROUND_TEXTURE, x, y, 0, 0, this.backgroundWidth, this.backgroundHeight);
+							//TODO: Fix this
+							drawEntity(drawContext,x, y, x + 51, y + 75, 0,0.0f, (float)(x + 51) - mouseX, (float)(y + 75 - 50) - mouseY, this.client.player);
 						}
 					});
 				});

@@ -8,31 +8,25 @@
  */
 package org.bleachhack.util.auth;
 
-import java.net.Proxy;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.mojang.authlib.exceptions.AuthenticationException;
+import net.minecraft.client.session.Session;
+import org.bleachhack.util.BleachLogger;
+import org.bleachhack.util.io.BleachOnlineMang;
+
 import java.net.URI;
 import java.net.URLEncoder;
 import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
-import java.util.Locale;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-
-import org.bleachhack.util.BleachLogger;
-import org.bleachhack.util.io.BleachOnlineMang;
-
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.mojang.authlib.Agent;
-import com.mojang.authlib.exceptions.AuthenticationException;
-import com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService;
-import com.mojang.authlib.yggdrasil.YggdrasilUserAuthentication;
-
-import net.minecraft.client.util.Session;
 
 public final class LoginHelper {
 
@@ -45,7 +39,7 @@ public final class LoginHelper {
 	private static final Pattern MS_REDIRECT_PATTERN = Pattern.compile("urlPost:'(.*?)'");
 	private static final Pattern MS_ACCESS_TOKEN_PATTERN = Pattern.compile("accessToken=(.*?)(&|$)");
 
-	public static Session createMojangSession(String email, String password) throws AuthenticationException {
+	/*public static Session createMojangSession(String email, String password) throws AuthenticationException {
 		YggdrasilUserAuthentication auth = (YggdrasilUserAuthentication) new YggdrasilAuthenticationService(
 				Proxy.NO_PROXY, "").createUserAuthentication(Agent.MINECRAFT);
 
@@ -68,7 +62,7 @@ public final class LoginHelper {
 				auth.getSelectedProfile().getId().toString(),
 				auth.getAuthenticatedToken(),
 				Optional.empty(), Optional.empty(), Session.AccountType.MOJANG);
-	}
+	}*/
 
 	public static Session createMicrosoftSession(String email, String password) throws AuthenticationException {
 		JsonObject xsts = getXboxToken(email, password).get(1).getAsJsonObject().get("Item2").getAsJsonObject();
@@ -173,10 +167,10 @@ public final class LoginHelper {
 		if (!profileJson.has("id"))
 			throw new AuthenticationException("Got invalid MC profile!");
 
-		String id = profileJson.get("id").getAsString();
+		UUID id = UUID.fromString(profileJson.get("id").getAsString());
 
-		if (id.length() == 32)
-			id = id.substring(0, 8) + "-" + id.substring(8, 12) + "-" + id.substring(12, 16) + "-" + id.substring(16, 20) + "-" + id.substring(20);
+		if (String.valueOf(id).length() == 32)
+			id = UUID.fromString(String.valueOf(id).substring(0, 8) + "-" + String.valueOf(id).substring(8, 12) + "-" + String.valueOf(id).substring(12, 16) + "-" + String.valueOf(id).substring(16, 20) + "-" + String.valueOf(id).substring(20));
 
 		return new Session(profileJson.get("name").getAsString(), id, mcToken, Optional.empty(), Optional.empty(), Session.AccountType.MSA);
 	}
@@ -194,4 +188,8 @@ public final class LoginHelper {
 			throw authEx;
 		}
 	}
+
+	public static Session createMojangSession(String s, String s1) {
+        return null;
+    }
 }

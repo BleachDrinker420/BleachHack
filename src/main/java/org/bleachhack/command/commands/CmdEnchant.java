@@ -81,7 +81,7 @@ public class CmdEnchant extends Command {
 	}
 
 	@Override
-	public void onCommand(String alias, String[] args) throws Exception {
+	public void onCommand(String alias, String[] args) throws CmdSyntaxException {
 		if (!mc.interactionManager.getCurrentGameMode().isCreative()) {
 			BleachLogger.error("Not In Creative Mode!");
 			return;
@@ -127,7 +127,7 @@ public class CmdEnchant extends Command {
 		}
 	}
 
-	public void enchant(ItemStack item, Enchantment e, int level) {
+	public void enchant(ItemStack item, Enchantment e, int level) throws CmdSyntaxException {
 		if (e == null) {
 			throw new CmdSyntaxException("Invalid enchantment!");
 		}
