@@ -8,6 +8,7 @@
  */
 package org.bleachhack.module.mods;
 
+import net.minecraft.client.gui.DrawContext;
 import org.bleachhack.event.events.EventOpenScreen;
 import org.bleachhack.event.events.EventPacket;
 import org.bleachhack.event.events.EventRenderInGameHud;
@@ -24,6 +25,7 @@ import net.minecraft.network.packet.s2c.play.GameJoinS2CPacket;
 public class DeathExplorer extends Module {
 
 	private boolean dead;
+	DrawContext drawContext = new DrawContext(mc, mc.getBufferBuilders().getEffectVertexConsumers());
 
 	public DeathExplorer() {
 		super("DeathExplorer", KEY_UNBOUND, ModuleCategory.PLAYER, "Allows you to explore the world after you've died.",
@@ -50,11 +52,12 @@ public class DeathExplorer extends Module {
 		}
 	}
 
+	//TODO: Only render text when player is dead lol
 	@BleachSubscribe
 	public void onRenderInGameHud(EventRenderInGameHud event) {
 		if (getSetting(0).asToggle().getState()) {
 			int length = mc.textRenderer.getWidth("You are in dead");
-			mc.textRenderer.drawWithShadow(event.getMatrix(), "You are dead", mc.getWindow().getScaledWidth() / 2 - length / 2, 10, 0xcc4040);
+			drawContext.drawTextWithShadow(mc.textRenderer,"You are dead", mc.getWindow().getScaledWidth() / 2 - length / 2, 10, 0xcc4040);
 		}
 	}
 

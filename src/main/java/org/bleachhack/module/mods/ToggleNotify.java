@@ -82,6 +82,6 @@ public class ToggleNotify extends Module {
 	
 	private void notify(Module module) {
 		BleachLogger.info(Text.literal(
-				module.getName() + ": " + (module.isEnabled() ? "\u00a7aEnabled" : "\u00a7cDisabled")));
+				module.getName() + ": " + (module.isEnabled() ? "§aEnabled" : "§cDisabled")));
 	}
 }

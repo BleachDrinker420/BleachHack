@@ -23,8 +23,8 @@ mutable       field    net/minecraft/MinecraftVersion    dataPackVersion    I
 
 # MinecraftClient
 # - For AccountManager to change the session
-accessible    field    net/minecraft/client/MinecraftClient    session    Lnet/minecraft/client/util/Session;
-mutable       field    net/minecraft/client/MinecraftClient    session    Lnet/minecraft/client/util/Session;
+accessible    field    net/minecraft/client/MinecraftClient    session    Lnet/minecraft/client/session/Session;
+mutable       field    net/minecraft/client/MinecraftClient    session    Lnet/minecraft/client/session/Session;
 # - For FastUse to change the item use cooldown and rightclick the mouse
 accessible    method    net/minecraft/client/MinecraftClient    doItemUse    ()V
 accessible    field    net/minecraft/client/MinecraftClient    itemUseCooldown    I
@@ -79,7 +79,6 @@ accessible    field    net/minecraft/client/font/TextRenderer    fontStorageAcce
 # - For AutoReconnect to read the various fields of DisconnectedScreen
 accessible    field    net/minecraft/client/gui/screen/DisconnectedScreen    parent    Lnet/minecraft/client/gui/screen/Screen;
 accessible    field    net/minecraft/client/gui/screen/DisconnectedScreen    reason    Lnet/minecraft/text/Text;
-accessible    field    net/minecraft/client/gui/screen/DisconnectedScreen    reasonHeight    I
 
 
 # HandledScreen

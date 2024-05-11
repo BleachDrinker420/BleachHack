@@ -39,7 +39,7 @@ public class CmdServer extends Command {
 	}
 
 	@Override
-	public void onCommand(String alias, String[] args) throws Exception {
+	public void onCommand(String alias, String[] args) throws CmdSyntaxException {
 		boolean sp = mc.isIntegratedServerRunning();
 
 		if (!sp && mc.getCurrentServerEntry() == null) {
@@ -105,16 +105,16 @@ public class CmdServer extends Command {
 					.collect(Collectors.toList());
 
 			if (!plugins.isEmpty()) {
-				BleachLogger.noPrefix(createText("Plugins \u00a7f(" + plugins.size() + ")", "\u00a7a" + String.join("\u00a7f, \u00a7a", plugins)));
+				BleachLogger.noPrefix(createText("Plugins §f(" + plugins.size() + ")", "§a" + String.join("§f, §a", plugins)));
 			} else {
-				BleachLogger.noPrefix("\u00a7cNo plugins found");
+				BleachLogger.noPrefix("§cNo plugins found");
 			}
 		}
 	}
 
 	public Text createText(String name, String value) {
 		boolean newlines = value.contains("\n");
-		return Text.literal("\u00a77" + name + "\u00a7f:" + (newlines ? "\n" : " " ) + "\u00a7a" + value).styled(style -> style
+		return Text.literal("§7" + name + "§f:" + (newlines ? "\n" : " " ) + "§a" + value).styled(style -> style
 				.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Text.literal("Click to copy to clipboard")))
 				.withClickEvent(new ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, Formatting.strip(value))));
 	}
@@ -127,7 +127,7 @@ public class CmdServer extends Command {
 			try {
 				Thread.sleep(5000);
 				if (BleachHack.eventBus.unsubscribe(this))
-					BleachLogger.noPrefix("\u00a7cPlugin check timed out");
+					BleachLogger.noPrefix("§cPlugin check timed out");
 			} catch (InterruptedException ignored) {
 			}
 		});
@@ -146,7 +146,7 @@ public class CmdServer extends Command {
 		if (singleplayer)
 			return "Integrated Server";
 
-		return mc.player.getServerBrand() != null ? mc.player.getServerBrand() : "Unknown";
+		return mc.getNetworkHandler().getBrand() != null ? mc.getNetworkHandler().getBrand() : "unknown";
 	}
 
 	public String getDay(boolean singleplayer) {

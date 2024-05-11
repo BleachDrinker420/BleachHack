@@ -22,7 +22,7 @@ public class CmdPrefix extends Command {
 	}
 
 	@Override
-	public void onCommand(String alias, String[] args) throws Exception {
+	public void onCommand(String alias, String[] args) throws CmdSyntaxException {
 		if (args[0].isEmpty()) {
 			throw new CmdSyntaxException("Prefix Cannot Be Empty");
 		}

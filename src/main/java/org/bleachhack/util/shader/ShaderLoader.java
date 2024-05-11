@@ -1,8 +1,6 @@
 package org.bleachhack.util.shader;
 
-import java.io.IOException;
 import com.google.gson.JsonSyntaxException;
-
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.Framebuffer;
 import net.minecraft.client.gl.PostEffectProcessor;
@@ -11,6 +9,8 @@ import net.minecraft.client.render.VertexFormat;
 import net.minecraft.client.texture.TextureManager;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
+
+import java.io.IOException;
 
 public class ShaderLoader {
 

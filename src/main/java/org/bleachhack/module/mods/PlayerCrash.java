@@ -14,7 +14,7 @@ import org.bleachhack.module.Module;
 import org.bleachhack.module.ModuleCategory;
 import org.bleachhack.setting.module.SettingSlider;
 
-import net.minecraft.network.packet.c2s.play.KeepAliveC2SPacket;
+import net.minecraft.network.packet.c2s.common.KeepAliveC2SPacket;
 import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
 
 public class PlayerCrash extends Module {

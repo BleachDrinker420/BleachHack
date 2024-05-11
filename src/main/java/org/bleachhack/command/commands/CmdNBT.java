@@ -8,6 +8,7 @@
  */
 package org.bleachhack.command.commands;
 
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.bleachhack.command.Command;
@@ -37,7 +38,7 @@ public class CmdNBT extends Command {
 	}
 
 	@Override
-	public void onCommand(String alias, String[] args) throws Exception {
+	public void onCommand(String alias, String[] args) throws CmdSyntaxException, CommandSyntaxException {
 		if (args.length == 0) {
 			throw new CmdSyntaxException();
 		}
@@ -52,14 +53,14 @@ public class CmdNBT extends Command {
 			if (nbt != null) {
 				Text textNbt = NbtHelper.toPrettyPrintedText(nbt);
 
-				Text copy = Text.literal("\u00a7e\u00a7l<COPY>")
+				Text copy = Text.literal("§e§l<COPY>")
 						.styled(s ->
 						s.withClickEvent(
 								new ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, textNbt.getString()))
 						.withHoverEvent(
 								new HoverEvent(HoverEvent.Action.SHOW_TEXT, Text.literal("Copy the nbt of this item to your clipboard"))));
 
-				BleachLogger.info(Text.literal("\u00a76\u00a7lNBT: ").append(copy).append("\u00a76\n" + textNbt));
+				BleachLogger.info(Text.literal("§6§lNBT: ").append(copy).append("§6\n" + textNbt));
 			}
 		} else if (args[0].equalsIgnoreCase("copy")) {
 			if (args.length != 2) {
@@ -70,7 +71,7 @@ public class CmdNBT extends Command {
 
 			if (nbt != null) {
 				mc.keyboard.setClipboard(nbt.toString());
-				BleachLogger.info("\u00a76Copied\n\u00a7f" + NbtHelper.toPrettyPrintedText(nbt).getString() + "\n\u00a76to clipboard.");
+				BleachLogger.info("§6Copied\n§f" + NbtHelper.toPrettyPrintedText(nbt).getString() + "\n§6to clipboard.");
 			}
 		} else if (args[0].equalsIgnoreCase("set")) {
 			if (!mc.interactionManager.getCurrentGameMode().isCreative()) {
@@ -84,7 +85,7 @@ public class CmdNBT extends Command {
 
 			ItemStack item = mc.player.getMainHandStack();
 			item.setNbt(StringNbtReader.parse(StringUtils.join(ArrayUtils.subarray(args, 1, args.length), ' ')));
-			BleachLogger.info("\u00a76Set NBT of " + item.getItem().getName().getString() + " to\n" + BleachJsonHelper.formatJson(item.getNbt().toString()));
+			BleachLogger.info("§6Set NBT of " + item.getItem().getName().getString() + " to\n" + BleachJsonHelper.formatJson(item.getNbt().toString()));
 		} else if (args[0].equalsIgnoreCase("wipe")) {
 			if (!mc.interactionManager.getCurrentGameMode().isCreative()) {
 				BleachLogger.error("You must be in creative mode to wipe NBT!");
@@ -97,7 +98,7 @@ public class CmdNBT extends Command {
 		}
 	}
 
-	private NbtCompound getNbt(String arg) {
+	private NbtCompound getNbt(String arg) throws CmdSyntaxException {
 		if (arg.equalsIgnoreCase("hand")) {
 			return mc.player.getMainHandStack().getOrCreateNbt();
 		} else if (arg.equalsIgnoreCase("block")) {

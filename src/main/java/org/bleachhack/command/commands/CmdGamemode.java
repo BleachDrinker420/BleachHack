@@ -25,7 +25,7 @@ public class CmdGamemode extends Command {
 	}
 
 	@Override
-	public void onCommand(String alias, String[] args) throws Exception {
+	public void onCommand(String alias, String[] args) throws CmdSyntaxException {
 		if (args.length == 0) {
 			throw new CmdSyntaxException();
 		}
@@ -34,16 +34,16 @@ public class CmdGamemode extends Command {
 
 		if (lower.equals("0") || lower.startsWith("su")) {
 			mc.interactionManager.setGameMode(GameMode.SURVIVAL);
-			BleachLogger.info("\u00a7l\u00a7nClientside\u00a7r gamemode has been set to survival.");
+			BleachLogger.info("§l§nClientside§r gamemode has been set to survival.");
 		} else if (lower.equals("1") || lower.startsWith("c")) {
 			mc.interactionManager.setGameMode(GameMode.CREATIVE);
-			BleachLogger.info("\u00a7l\u00a7nClientside\u00a7r gamemode has been set to creative.");
+			BleachLogger.info("§l§nClientside§r gamemode has been set to creative.");
 		} else if (lower.equals("2") || lower.startsWith("a")) {
 			mc.interactionManager.setGameMode(GameMode.ADVENTURE);
-			BleachLogger.info("\u00a7l\u00a7nClientside\u00a7r gamemode has been set to adventure.");
+			BleachLogger.info("§l§nClientside§r gamemode has been set to adventure.");
 		} else if (lower.equals("3") || lower.startsWith("sp")) {
 			mc.interactionManager.setGameMode(GameMode.SPECTATOR);
-			BleachLogger.info("\u00a7l\u00a7nClientside\u00a7r gamemode has been set to spectator.");
+			BleachLogger.info("§l§nClientside§r gamemode has been set to spectator.");
 		} else {
 			throw new CmdSyntaxException("Unknown Gamemode!");
 		}

@@ -8,29 +8,19 @@
  */
 package org.bleachhack.gui.window;
 
+import com.mojang.blaze3d.systems.RenderSystem;
+import it.unimi.dsi.fastutil.ints.Int2IntMap.Entry;
+import it.unimi.dsi.fastutil.ints.*;
+import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.render.*;
+import net.minecraft.text.Text;
+import org.bleachhack.gui.window.widget.WindowWidget;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.ConcurrentModificationException;
 import java.util.List;
-
-import org.bleachhack.gui.window.widget.WindowWidget;
-
-import com.mojang.blaze3d.systems.RenderSystem;
-
-import it.unimi.dsi.fastutil.ints.Int2IntMap.Entry;
-import it.unimi.dsi.fastutil.ints.Int2IntRBTreeMap;
-import it.unimi.dsi.fastutil.ints.Int2IntSortedMap;
-import it.unimi.dsi.fastutil.ints.IntArrayList;
-import it.unimi.dsi.fastutil.ints.IntCollection;
-import it.unimi.dsi.fastutil.ints.IntList;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.render.BufferBuilder;
-import net.minecraft.client.render.GameRenderer;
-import net.minecraft.client.render.Tessellator;
-import net.minecraft.client.render.VertexFormat;
-import net.minecraft.client.render.VertexFormats;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.text.Text;
 
 public abstract class WindowScreen extends Screen {
 
@@ -127,11 +117,11 @@ public abstract class WindowScreen extends Screen {
 	}
 
 	@Override
-	public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-		super.render(matrices, mouseX, mouseY, delta);
+	public void render(DrawContext drawContext, int mouseX, int mouseY, float delta) {
+		super.render(drawContext, mouseX, mouseY, delta);
 		
 		for (WindowWidget w : globalWidgets) {
-			w.render(matrices, 0, 0, mouseX, mouseY);
+			w.render(drawContext, 0, 0, mouseX, mouseY);
 		}
 
 		int sel = getSelectedWindow();
@@ -150,16 +140,16 @@ public abstract class WindowScreen extends Screen {
 		for (int w: getWindowsBackToFront()) {
 			if (!getWindow(w).closed) {
 				close = false;
-				onRenderWindow(matrices, w, mouseX, mouseY);
+				onRenderWindow(drawContext, w, mouseX, mouseY);
 			}
 		}
 
 		if (autoClose && close) this.close();
 	}
 
-	public void onRenderWindow(MatrixStack matrices, int window, int mouseX, int mouseY) {
+	public void onRenderWindow(DrawContext drawContext, int window, int mouseX, int mouseY) {
 		if (!windows.get(window).closed) {
-			windows.get(window).render(matrices, mouseX, mouseY);
+			windows.get(window).render(drawContext, mouseX, mouseY);
 		}
 	}
 
@@ -249,7 +239,7 @@ public abstract class WindowScreen extends Screen {
 	}
 
 	@Override
-	public void renderBackgroundTexture(MatrixStack matrices) {
+	public void renderBackgroundTexture(DrawContext drawContext) {
 		int colorOffset = (int) ((System.currentTimeMillis() / 75) % 100);
 		if (colorOffset > 50)
 			colorOffset = 50 - (colorOffset - 50);

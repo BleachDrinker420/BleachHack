@@ -13,6 +13,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.Random;
 
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import org.bleachhack.command.Command;
 import org.bleachhack.command.CommandCategory;
 import org.bleachhack.command.exception.CmdSyntaxException;
@@ -35,7 +36,7 @@ public class CmdSkull extends Command {
 	}
 
 	@Override
-	public void onCommand(String alias, String[] args) throws Exception {
+	public void onCommand(String alias, String[] args) throws CmdSyntaxException, CommandSyntaxException {
 		if (!mc.interactionManager.getCurrentGameMode().isCreative()) {
 			BleachLogger.error("Not In Creative Mode!");
 			return;

@@ -8,16 +8,6 @@
  */
 package org.bleachhack.mixin;
 
-import net.minecraft.registry.tag.FluidTags;
-import org.bleachhack.module.Module;
-import org.bleachhack.module.ModuleManager;
-import org.bleachhack.module.mods.SpeedMine;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
 import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityType;
@@ -27,7 +17,16 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.world.World;
+import org.bleachhack.module.Module;
+import org.bleachhack.module.ModuleManager;
+import org.bleachhack.module.mods.SpeedMine;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(PlayerEntity.class)
 public abstract class MixinPlayerEntity extends LivingEntity {
@@ -83,7 +82,7 @@ public abstract class MixinPlayerEntity extends LivingEntity {
 					breakingSpeed /= 5.0F;
 				}
 
-				if (!this.onGround) {
+				if (!this.isOnGround()) {
 					breakingSpeed /= 5.0F;
 				}
 			}

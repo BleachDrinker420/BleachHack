@@ -10,6 +10,7 @@ package org.bleachhack.util.world;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ArrowEntity;
@@ -52,7 +53,7 @@ public class ProjectileSimulator {
 					: hand.getItem() == Items.CROSSBOW ? 0f : BowItem.getPullProgress(thrower.getItemUseTime());
 
 			if (charged > 0f) {
-				Entity e = new ArrowEntity(mc.world, mc.player);
+				Entity e = new ArrowEntity(EntityType.ARROW, mc.world);
 				initProjectile(e, thrower, 0f, charged * 3);
 				return e;
 			}

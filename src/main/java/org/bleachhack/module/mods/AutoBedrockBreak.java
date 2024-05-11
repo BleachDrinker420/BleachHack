@@ -51,7 +51,7 @@ public class AutoBedrockBreak extends Module {
 		if (pos != null) {
 			switch (step) {
 				case 0:
-					if (!mc.world.isSpaceEmpty(new Box(pos.up(), pos.add(1, 8, 1)))) {
+					if (!mc.world.isSpaceEmpty(new Box(pos.up().toCenterPos(), pos.add(1, 8, 1).toCenterPos()))) {
 						reset();
 						BleachLogger.info("Not enough empty space to break this block!");
 					} else if (InventoryUtils.getSlot(true, i -> mc.player.getInventory().getStack(i).getItem() == Items.PISTON) == -1) {

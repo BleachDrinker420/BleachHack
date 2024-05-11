@@ -1,12 +1,12 @@
 package org.bleachhack.mixin;
 
+import net.minecraft.client.render.BufferBuilder;
+import net.minecraft.client.render.BufferVertexConsumer;
+import net.minecraft.client.render.FixedColorVertexConsumer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.Redirect;
-import net.minecraft.client.render.BufferBuilder;
-import net.minecraft.client.render.BufferVertexConsumer;
-import net.minecraft.client.render.FixedColorVertexConsumer;
 
 /**
  * BufferBuilder patch that allows the color to be temporarily fixed even when the VertexFormatElement isn't COLOR

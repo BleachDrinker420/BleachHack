@@ -26,6 +26,6 @@ public class OptionBoolean extends Option<Boolean> {
 
 			if (onToggle != null)
 				onToggle.accept(getValue());
-		}).withRenderEvent((w, ms, wx, wy) -> ((WindowButtonWidget) w).text = getValue() ? "\u00a7aTrue" : "\u00a7cFalse");
+		}).withRenderEvent((w, ms, wx, wy) -> ((WindowButtonWidget) w).text = getValue() ? "§aTrue" : "§cFalse");
 	}
 }

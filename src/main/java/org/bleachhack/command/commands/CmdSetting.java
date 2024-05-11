@@ -24,7 +24,7 @@ public class CmdSetting extends Command {
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public void onCommand(String alias, String[] args) throws Exception {
+	public void onCommand(String alias, String[] args) throws CmdSyntaxException {
 		if (args.length < 2) {
 			throw new CmdSyntaxException();
 		}

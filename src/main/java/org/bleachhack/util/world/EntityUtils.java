@@ -8,8 +8,6 @@
  */
 package org.bleachhack.util.world;
 
-import org.bleachhack.BleachHack;
-
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -22,6 +20,7 @@ import net.minecraft.entity.passive.SnowGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.AbstractFireballEntity;
 import net.minecraft.entity.projectile.ShulkerBulletEntity;
+import org.bleachhack.BleachHack;
 
 public class EntityUtils {
 

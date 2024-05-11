@@ -8,13 +8,13 @@
  */
 package org.bleachhack.util.operation;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class OperationList {
 

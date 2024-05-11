@@ -8,12 +8,11 @@
  */
 package org.bleachhack.event.events;
 
-import org.bleachhack.event.Event;
-
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import org.bleachhack.event.Event;
 
 public class EventInteract extends Event {
 

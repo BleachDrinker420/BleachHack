@@ -8,16 +8,16 @@
  */
 package org.bleachhack.util;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.text.Text;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class ItemContentUtils {
 
@@ -47,7 +47,7 @@ public class ItemContentUtils {
 				if (item.getItem() == Items.WRITABLE_BOOK) {
 					pages.add(nbt2.getString(i));
 				} else {
-					Text text = Text.Serializer.fromLenientJson(nbt2.getString(i));
+					Text text = Text.of(nbt2.getString(i));
 
 					pages.add(text != null ? text.getString() : nbt2.getString(i));
 				}

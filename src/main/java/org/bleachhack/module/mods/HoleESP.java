@@ -12,6 +12,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3d;
 import org.apache.commons.lang3.ArrayUtils;
 import org.bleachhack.event.events.EventTick;
 import org.bleachhack.event.events.EventWorldRender;
@@ -141,20 +142,20 @@ public class HoleESP extends Module {
 				CardinalDirection gradientDir = sideMode == 0 ? CardinalDirection.NORTH : CardinalDirection.SOUTH;
 
 				holes.forEach((pos, color) ->
-						Renderer.drawBoxFill(new Box(pos, pos.add(1, 0, 1)).stretch(0, height, 0),
+						Renderer.drawBoxFill(new Box(new Vec3d(pos.getX(), pos.getY(), pos.getZ()), new Vec3d(pos.getX() + 1, pos.getY(), pos.getZ() + 1)).stretch(0, height, 0),
 								QuadColor.gradient(
 										color[0], color[1], color[2], alpha,
 										color[0], color[1], color[2], 0, gradientDir), excludeDirs));
 			} else {
 				if (sideMode == 2 || sideMode == 4) {
 					holes.forEach((pos, color) ->
-							Renderer.drawBoxFill(new Box(pos, pos.add(1, 0, 1)).stretch(0, height, 0),
+							Renderer.drawBoxFill(new Box(new Vec3d(pos.getX(), pos.getY(), pos.getZ()), new Vec3d(pos.getX() + 1, pos.getY(), pos.getZ() + 1)).stretch(0, height, 0),
 									QuadColor.single(color[0], color[1], color[2], alpha), excludeDirs));
 				}
 
 				if (sideMode == 2 || sideMode == 3) {
 					holes.forEach((pos, color) ->
-							Renderer.drawBoxOutline(new Box(pos, pos.add(1, 0, 1)).stretch(0, height, 0),
+							Renderer.drawBoxOutline(new Box(new Vec3d(pos.getX(), pos.getY(), pos.getZ()), new Vec3d(pos.getX() + 1, pos.getY(), pos.getZ() + 1)).stretch(0, height, 0),
 									QuadColor.single(color[0], color[1], color[2], 255), getSetting(2).asToggle().getChild(1).asSlider().getValueFloat(), excludeDirs));
 				}
 			}

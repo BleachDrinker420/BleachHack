@@ -6,7 +6,6 @@ import org.bleachhack.gui.window.widget.WindowTextFieldWidget;
 import org.bleachhack.gui.window.widget.WindowWidget;
 import org.bleachhack.setting.SettingDataHandlers;
 
-import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 
 public class OptionString extends Option<String> {
@@ -48,10 +47,10 @@ public class OptionString extends Option<String> {
 				textField.setText(getRealValue());
 
 			if (validator != null && !validator.apply(getRealValue())) {
-				DrawableHelper.fill(ms, wx + w.x1 - 1, wy + w.y1 - 1, wx + w.x2 + 1, wy + w.y1, 0xffd07070);
-				DrawableHelper.fill(ms, wx + w.x1 - 1, wy + w.y2, wx + w.x2 + 1, wy + w.y2 + 1, 0xffd07070);
-				DrawableHelper.fill(ms, wx + w.x1 - 1, wy + w.y1, wx + w.x1, wy + w.y2, 0xffd07070);
-				DrawableHelper.fill(ms, wx + w.x2, wy + w.y1, wx + w.x2 + 1, wy + w.y2, 0xffd07070);
+				ms.fill(wx + w.x1 - 1, wy + w.y1 - 1, wx + w.x2 + 1, wy + w.y1, 0xffd07070);
+				ms.fill(wx + w.x1 - 1, wy + w.y2, wx + w.x2 + 1, wy + w.y2 + 1, 0xffd07070);
+				ms.fill(wx + w.x1 - 1, wy + w.y1, wx + w.x1, wy + w.y2, 0xffd07070);
+				ms.fill(wx + w.x2, wy + w.y1, wx + w.x2 + 1, wy + w.y2, 0xffd07070);
 			}
 		});
 	}
@@ -65,7 +64,7 @@ public class OptionString extends Option<String> {
 	public String getValue() {
 		return lastValidValue;
 	}
-	
+
 	@Override
 	public void setValue(String value) {
 		super.setValue(value);

@@ -180,7 +180,7 @@ public class Notebot extends Module {
 
 				setEnabled(false);
 				setEnabled(true);
-				BleachLogger.info("Now Playing: \u00a7a" + song.filename);
+				BleachLogger.info("Now Playing: §a" + song.filename);
 			} else if (getSetting(1).asToggle().getState()) {
 				timer = -10;
 			}

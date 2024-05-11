@@ -8,13 +8,12 @@
  */
 package org.bleachhack.mixin;
 
+import net.minecraft.SharedConstants;
 import org.bleachhack.module.Module;
 import org.bleachhack.module.ModuleManager;
 import org.bleachhack.module.mods.NoKeyBlock;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
-
-import net.minecraft.SharedConstants;
 
 @Mixin(SharedConstants.class)
 public class MixinSharedConstants {

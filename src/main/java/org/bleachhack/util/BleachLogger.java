@@ -8,16 +8,14 @@
  */
 package org.bleachhack.util;
 
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.text.MutableText;
+import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.bleachhack.BleachHack;
-
-import net.minecraft.client.MinecraftClient;
-
-import net.minecraft.text.MutableText;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
 
 public class BleachLogger {
 
@@ -37,7 +35,7 @@ public class BleachLogger {
 		try {
 			MinecraftClient.getInstance().inGameHud.getChatHud()
 			.addMessage(getBHText(INFO_COLOR)
-					//.append("\u00a73\u00a7lINFO: \u00a73")
+					//.append("§3§lINFO: §3")
 					.append(((MutableText) t).styled(s -> s.withColor(INFO_COLOR))));
 		} catch (Exception e) {
 			logger.log(Level.INFO, t.getString());
@@ -54,7 +52,7 @@ public class BleachLogger {
 		try {
 			MinecraftClient.getInstance().inGameHud.getChatHud()
 			.addMessage(getBHText(WARN_COLOR)
-					//.append("\u00a7e\u00a7lWARN: \u00a7e")
+					//.append("§e§lWARN: §e")
 					.append(((MutableText) t).styled(s -> s.withColor(WARN_COLOR))));
 		} catch (Exception e) {
 			logger.log(Level.WARN, t.getString());
@@ -71,7 +69,7 @@ public class BleachLogger {
 		try {
 			MinecraftClient.getInstance().inGameHud.getChatHud()
 			.addMessage(getBHText(ERROR_COLOR)
-					//.append("\u00a7c\u00a7lERROR: \u00a7c")
+					//.append("§c§lERROR: §c")
 					.append(((MutableText) t).styled(s -> s.withColor(ERROR_COLOR))));
 		} catch (Exception e) {
 			logger.log(Level.ERROR, t.getString());

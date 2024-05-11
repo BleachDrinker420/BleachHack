@@ -21,12 +21,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.util.concurrent.Future;
-import io.netty.util.concurrent.GenericFutureListener;
 import net.minecraft.network.ClientConnection;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.c2s.play.ChatMessageC2SPacket;
-import net.minecraft.network.packet.s2c.play.PlayerListS2CPacket;
 
 @Mixin(ClientConnection.class)
 public class MixinClientConnection {

@@ -8,7 +8,13 @@
  */
 package org.bleachhack.mixin;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gl.PostEffectProcessor;
+import net.minecraft.client.render.GameRenderer;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.util.math.MathHelper;
 import org.bleachhack.BleachHack;
 import org.bleachhack.event.events.EventRenderShader;
 import org.bleachhack.module.ModuleManager;
@@ -19,14 +25,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import com.mojang.blaze3d.systems.RenderSystem;
-
-import net.minecraft.client.render.GameRenderer;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.util.math.MathHelper;
 
 @Mixin(GameRenderer.class)
 public class MixinGameRenderer {

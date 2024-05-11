@@ -8,13 +8,18 @@
  */
 package org.bleachhack.mixin;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.block.BlockState;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.render.*;
+import net.minecraft.client.render.entity.EntityRenderDispatcher;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.entity.Entity;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.profiler.Profiler;
 import org.bleachhack.BleachHack;
-import org.bleachhack.event.events.EventBlockEntityRender;
-import org.bleachhack.event.events.EventEntityRender;
-import org.bleachhack.event.events.EventRenderBlockOutline;
-import org.bleachhack.event.events.EventSkyRender;
-import org.bleachhack.event.events.EventWorldRender;
+import org.bleachhack.event.events.*;
 import org.bleachhack.util.BleachLogger;
 import org.joml.Matrix4f;
 import org.lwjgl.opengl.GL11;
@@ -25,22 +30,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import com.mojang.blaze3d.systems.RenderSystem;
-
-import net.minecraft.block.BlockState;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.Camera;
-import net.minecraft.client.render.GameRenderer;
-import net.minecraft.client.render.LightmapTextureManager;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.WorldRenderer;
-import net.minecraft.client.render.entity.EntityRenderDispatcher;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.profiler.Profiler;
 
 @Mixin(WorldRenderer.class)
 public class MixinWorldRenderer {

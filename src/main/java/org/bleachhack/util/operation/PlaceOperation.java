@@ -8,13 +8,6 @@
  */
 package org.bleachhack.util.operation;
 
-import org.apache.commons.lang3.ArrayUtils;
-import org.bleachhack.util.InventoryUtils;
-import org.bleachhack.util.render.Renderer;
-import org.bleachhack.util.render.WorldRenderer;
-import org.bleachhack.util.render.color.QuadColor;
-import org.bleachhack.util.world.WorldUtils;
-
 import net.minecraft.block.BlockState;
 import net.minecraft.client.render.RenderLayers;
 import net.minecraft.client.util.math.MatrixStack;
@@ -24,6 +17,12 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
+import org.apache.commons.lang3.ArrayUtils;
+import org.bleachhack.util.InventoryUtils;
+import org.bleachhack.util.render.Renderer;
+import org.bleachhack.util.render.WorldRenderer;
+import org.bleachhack.util.render.color.QuadColor;
+import org.bleachhack.util.world.WorldUtils;
 
 public class PlaceOperation extends Operation {
 

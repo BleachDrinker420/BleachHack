@@ -1,14 +1,11 @@
 package org.bleachhack.gui.window.widget;
 
 import net.minecraft.client.font.TextRenderer;
-import net.minecraft.util.math.RotationAxis;
-import org.bleachhack.mixin.AccessorScreen;
-
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.Tessellator;
 import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.util.math.MatrixStack;
-
 import net.minecraft.text.Text;
+import net.minecraft.util.math.RotationAxis;
 
 public class WindowTextWidget extends WindowWidget {
 
@@ -54,30 +51,29 @@ public class WindowTextWidget extends WindowWidget {
 	}
 
 	@Override
-	public void render(MatrixStack matrices, int windowX, int windowY, int mouseX, int mouseY) {
-		super.render(matrices, windowX, windowY, mouseX, mouseY);
+	public void render(DrawContext drawContext, int windowX, int windowY, int mouseX, int mouseY) {
+		super.render(drawContext, windowX, windowY, mouseX, mouseY);
 
 		float offset = mc.textRenderer.getWidth(text) * align.offset * scale;
 
-		matrices.push();
-		matrices.scale(scale, scale, 1f);
-		matrices.translate((windowX + x1 - offset) / scale, (windowY + y1) / scale, 0);
-		matrices.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(rotation));
+		drawContext.getMatrices().push();
+		drawContext.getMatrices().scale(scale, scale, 1f);
+		drawContext.getMatrices().translate((windowX + x1 - offset) / scale, (windowY + y1) / scale, 0);
+		drawContext.getMatrices().multiply(RotationAxis.POSITIVE_Z.rotationDegrees(rotation));
 
 		VertexConsumerProvider.Immediate immediate = VertexConsumerProvider.immediate(Tessellator.getInstance().getBuffer());
-		mc.textRenderer.draw(text, 0, 0, color, shadow, matrices.peek().getPositionMatrix(), immediate, TextRenderer.TextLayerType.NORMAL, 0, 0xf000f0);
+		mc.textRenderer.draw(text, 0, 0, color, shadow, drawContext.getMatrices().peek().getPositionMatrix(), immediate, TextRenderer.TextLayerType.NORMAL, 0, 0xf000f0);
 		immediate.draw();
 
 		if (text.getStyle() != null && mc.currentScreen != null
 				&& mouseX >= windowX + x1 - offset && mouseX <= windowX + x2 - offset && mouseY >= windowY + y1 && mouseY <= windowY + y2) {
-			matrices.push();
-			matrices.translate(0, 0, 250);
-			((AccessorScreen) mc.currentScreen).callRenderTextHoverEffect(
-					matrices, text.getStyle(), mouseX - (windowX + x1 - (int) offset), mouseY - (windowY + y1));
-			matrices.pop();
+			drawContext.getMatrices().push();
+			drawContext.getMatrices().translate(0, 0, 250);
+			//((AccessorScreen) mc.currentScreen).callRenderTextHoverEffect(drawContext, text.getStyle(), mouseX - (windowX + x1 - (int) offset), mouseY - (windowY + y1));
+			drawContext.getMatrices().pop();
 		}
 
-		matrices.pop();
+		drawContext.getMatrices().pop();
 	}
 
 	public Text getText() {

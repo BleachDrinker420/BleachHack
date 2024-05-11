@@ -31,7 +31,7 @@ import net.minecraft.nbt.NbtString;
 import net.minecraft.network.packet.c2s.play.ClickSlotC2SPacket;
 import net.minecraft.network.packet.c2s.play.CreativeInventoryActionC2SPacket;
 import net.minecraft.network.packet.c2s.play.UpdateSignC2SPacket;
-import net.minecraft.network.packet.s2c.play.DisconnectS2CPacket;
+import net.minecraft.network.packet.s2c.common.DisconnectS2CPacket;
 import net.minecraft.screen.slot.SlotActionType;
 import net.minecraft.util.math.BlockPos;
 
@@ -83,7 +83,7 @@ public class BookCrash extends Module {
 			Random rand = new Random();
 			for (int i = 0; i < getSetting(1).asSlider().getValue(); i++) {
 				mc.player.networkHandler.sendPacket(new UpdateSignC2SPacket(
-						new BlockPos(rand.nextInt(29999999), rand.nextInt(29999999), rand.nextInt(29999999)), text, text, text, text));
+						new BlockPos(rand.nextInt(29999999), rand.nextInt(29999999), rand.nextInt(29999999)),true, text, text, text, text));
 			}
 		} else {
 			for (int i = 0; i < pages; i++) {

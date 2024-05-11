@@ -1,10 +1,10 @@
 package org.bleachhack.util.shader;
 
-import java.io.IOException;
-
 import net.minecraft.client.gl.ShaderProgram;
 import net.minecraft.client.render.VertexFormats;
 import net.minecraft.util.Identifier;
+
+import java.io.IOException;
 
 public class BleachCoreShaders {
 	

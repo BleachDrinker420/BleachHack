@@ -32,7 +32,7 @@ public class CmdGive extends Command {
 	}
 
 	@Override
-	public void onCommand(String alias, String[] args) throws Exception {
+	public void onCommand(String alias, String[] args) throws CmdSyntaxException, CommandSyntaxException {
 		if (!mc.interactionManager.getCurrentGameMode().isCreative()) {
 			BleachLogger.error("Not In Creative Mode!");
 			return;

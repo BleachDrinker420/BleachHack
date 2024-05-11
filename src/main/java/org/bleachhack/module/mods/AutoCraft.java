@@ -1,8 +1,5 @@
 package org.bleachhack.module.mods;
 
-import java.util.List;
-
-import net.minecraft.registry.DynamicRegistryManager;
 import org.bleachhack.event.events.EventTick;
 import org.bleachhack.eventbus.BleachSubscribe;
 import org.bleachhack.module.Module;
@@ -12,9 +9,7 @@ import org.bleachhack.setting.module.SettingSlider;
 import org.bleachhack.setting.module.SettingToggle;
 import org.bleachhack.util.BleachLogger;
 
-import net.minecraft.client.gui.screen.recipebook.RecipeResultCollection;
 import net.minecraft.item.Item;
-import net.minecraft.recipe.Recipe;
 import net.minecraft.screen.CraftingScreenHandler;
 import net.minecraft.screen.slot.SlotActionType;
 
@@ -62,14 +57,15 @@ public class AutoCraft extends Module {
 		mc.player.getRecipeBook().setGuiOpen(handler.getCategory(), true);
 
 		CraftingScreenHandler currentScreenHandler = (CraftingScreenHandler) mc.player.currentScreenHandler;
-		List<RecipeResultCollection> recipeResultCollectionList = mc.player.getRecipeBook().getOrderedResults();
+		var recipeResultCollectionList = mc.player.getRecipeBook().getOrderedResults();
 
 		boolean craftAll = getSetting(1).asToggle().getState();
 		boolean drop = getSetting(2).asToggle().getState();
 
-		for (RecipeResultCollection recipeResultCollection : recipeResultCollectionList) {
-			for (Recipe<?> recipe : recipeResultCollection.getRecipes(true)) {
-				if (getSetting(0).asList(Item.class).contains(recipe.getOutput(DynamicRegistryManager.EMPTY).getItem())) {
+		for (var recipeResultCollection : recipeResultCollectionList) {
+			for (var recipe : recipeResultCollection.getAllRecipes()) {
+				var output = recipe.value().getResult(mc.getNetworkHandler().getRegistryManager()).getItem();
+				if (getSetting(0).asList(Item.class).contains(output)) {
 					mc.interactionManager.clickRecipe(currentScreenHandler.syncId, recipe, craftAll);
 					mc.interactionManager.clickSlot(currentScreenHandler.syncId, 0, 0,
 							drop ? SlotActionType.THROW : SlotActionType.QUICK_MOVE, mc.player);

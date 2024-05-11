@@ -8,10 +8,9 @@
  */
 package org.bleachhack.event.events;
 
-import org.bleachhack.event.Event;
-
 import net.minecraft.entity.MovementType;
 import net.minecraft.util.math.Vec3d;
+import org.bleachhack.event.Event;
 
 public class EventClientMove extends Event {
 

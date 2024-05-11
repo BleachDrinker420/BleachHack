@@ -99,7 +99,7 @@ public class Surround extends Module {
 								BlockPos.ofFloored(box.maxX + 1, box.minY, box.minZ), BlockPos.ofFloored(box.maxX, box.minY, box.minZ - 1),
 								BlockPos.ofFloored(box.minX - 1, box.minY, box.maxZ), BlockPos.ofFloored(box.minX, box.minY, box.maxZ + 1),
 								BlockPos.ofFloored(box.maxX + 1, box.minY, box.maxZ), BlockPos.ofFloored(box.maxX, box.minY, box.maxZ + 1));
-		placePoses.removeIf(pos -> !mc.world.getBlockState(pos).getMaterial().isReplaceable());
+		placePoses.removeIf(pos -> !mc.world.getBlockState(pos).isReplaceable());
 
 		if (placePoses.isEmpty()) {
 			return;

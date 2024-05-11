@@ -8,14 +8,14 @@
  */
 package org.bleachhack.util;
 
-import java.util.Comparator;
-import java.util.function.IntPredicate;
-import java.util.stream.IntStream;
-
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.network.packet.c2s.play.UpdateSelectedSlotC2SPacket;
 import net.minecraft.screen.slot.SlotActionType;
 import net.minecraft.util.Hand;
+
+import java.util.Comparator;
+import java.util.function.IntPredicate;
+import java.util.stream.IntStream;
 
 public class InventoryUtils {
 	

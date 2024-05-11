@@ -8,10 +8,9 @@
  */
 package org.bleachhack.event.events;
 
-import org.bleachhack.event.Event;
-
 import net.minecraft.client.render.DimensionEffects;
 import net.minecraft.util.math.Vec3d;
+import org.bleachhack.event.Event;
 
 public class EventSkyRender extends Event {
 

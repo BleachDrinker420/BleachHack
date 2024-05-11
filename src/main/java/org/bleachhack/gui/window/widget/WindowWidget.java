@@ -1,7 +1,7 @@
 package org.bleachhack.gui.window.widget;
 
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.gui.DrawContext;
 
 public abstract class WindowWidget {
 
@@ -28,13 +28,13 @@ public abstract class WindowWidget {
 		this.y2 = y2;
 	}
 
-	public void render(MatrixStack matrices, int windowX, int windowY, int mouseX, int mouseY) {
+	public void render(DrawContext drawContext, int windowX, int windowY, int mouseX, int mouseY) {
 		if (renderEvent != null) {
-			renderEvent.accept(this, matrices, windowX, windowY);
+			renderEvent.accept(this, drawContext, windowX, windowY);
 		}
 
 		if (hoverEvent != null && isInBounds(windowX, windowY, mouseX, mouseY)) {
-			hoverEvent.accept(this, matrices, windowX, windowY);
+			hoverEvent.accept(this, drawContext, windowX, windowY);
 		}
 	}
 
@@ -89,7 +89,7 @@ public abstract class WindowWidget {
 	
 	@FunctionalInterface
 	public interface RenderEvent {
-		void accept(WindowWidget widget, MatrixStack matrices, int wx, int wy);
+		void accept(WindowWidget widget, DrawContext drawContext, int wx, int wy);
 	}
 	
 	@FunctionalInterface

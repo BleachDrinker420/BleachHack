@@ -8,25 +8,24 @@
  */
 package org.bleachhack.event.events;
 
-import net.minecraft.client.util.math.MatrixStack;
-import org.bleachhack.event.Event;
-
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.util.Identifier;
+import org.bleachhack.event.Event;
 
 public class EventRenderOverlay extends Event {
 
-	private MatrixStack matrices;
+	private DrawContext context;
 	private Identifier texture;
 	private float opacity;
 	
-	public EventRenderOverlay(MatrixStack matrices, Identifier texture, float opacity) {
-		this.matrices = matrices;
+	public EventRenderOverlay(DrawContext context, Identifier texture, float opacity) {
+		this.context = context;
 		this.texture = texture;
 		this.opacity = opacity;
 	}
 
-	public MatrixStack getMatrices() {
-		return matrices;
+	public DrawContext getMatrices() {
+		return context;
 	}
 
 	public Identifier getTexture() {

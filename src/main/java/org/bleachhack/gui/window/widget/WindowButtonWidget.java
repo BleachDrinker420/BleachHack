@@ -1,11 +1,10 @@
 package org.bleachhack.gui.window.widget;
 
-import org.bleachhack.gui.window.Window;
-
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.sound.PositionedSoundInstance;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.sound.SoundEvents;
+import org.bleachhack.gui.window.Window;
 
 public class WindowButtonWidget extends WindowWidget {
 
@@ -36,21 +35,20 @@ public class WindowButtonWidget extends WindowWidget {
 	}
 
 	@Override
-	public void render(MatrixStack matrices, int windowX, int windowY, int mouseX, int mouseY) {
-		super.render(matrices, windowX, windowY, mouseX, mouseY);
+	public void render(DrawContext drawContext, int windowX, int windowY, int mouseX, int mouseY) {
+		super.render(drawContext, windowX, windowY, mouseX, mouseY);
 
 		int bx1 = windowX + x1;
 		int by1 = windowY + y1;
 		int bx2 = windowX + x2;
 		int by2 = windowY + y2;
 
-		Window.fill(matrices,
+		Window.fill(drawContext,
 				bx1, by1, bx2, by2,
 				colorTop, colorBottom,
 				isInBounds(windowX, windowY, mouseX, mouseY) ? colorHoverFill : colorFill);
 
-		mc.textRenderer.drawWithShadow(
-				matrices, text, bx1 + (bx2 - bx1) / 2 - mc.textRenderer.getWidth(text) / 2, by1 + (by2 - by1) / 2 - 4, -1);
+		drawContext.drawTextWithShadow(mc.textRenderer, text, bx1 + (bx2 - bx1) / 2 - mc.textRenderer.getWidth(text) / 2, by1 + (by2 - by1) / 2 - 4, -1);
 	}
 
 	@Override

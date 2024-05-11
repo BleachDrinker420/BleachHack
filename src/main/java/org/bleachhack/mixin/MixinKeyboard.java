@@ -27,30 +27,43 @@ public class MixinKeyboard {
 
 	@Inject(method = "onKey", at = @At("HEAD"), cancellable = true)
 	private void onKeyEvent(long windowPointer, int key, int scanCode, int action, int modifiers, CallbackInfo callbackInfo) {
-		if (key >= 0) {
-			EventKeyPress.Global event = new EventKeyPress.Global(key, scanCode, action, modifiers);
-			BleachHack.eventBus.post(event);
+		if (action == 2) action = 1;
 
-			if (event.isCancelled()) {
-				callbackInfo.cancel();
+		switch (action) {
+			case 0 -> {
+				EventKeyPress.Global event = new EventKeyPress.Global(key, scanCode, EventKeyPress.Status.RELEASED, action, modifiers);
+				BleachHack.eventBus.post(event);
+				if (event.isCancelled()) callbackInfo.cancel();
+			}
+			case 1 -> {
+				EventKeyPress.Global event = new EventKeyPress.Global(key, scanCode, EventKeyPress.Status.PRESSED, action, modifiers);
+				BleachHack.eventBus.post(event);
+				if (event.isCancelled()) callbackInfo.cancel();
 			}
 		}
 	}
-	
-	@Inject(method = "onKey", at = @At(value = "INVOKE", target = "net/minecraft/client/util/InputUtil.isKeyPressed(JI)Z", ordinal = 5), cancellable = true)
+
+	@Inject(method = "onKey", at = @At(value = "INVOKE", target = "net/minecraft/client/util/InputUtil.isKeyPressed(JI)Z", ordinal = 2), cancellable = true)
 	private void onKeyEvent_1(long windowPointer, int key, int scanCode, int action, int modifiers, CallbackInfo callbackInfo) {
+		if (action == 2) action = 1;
+
 		if (Option.CHAT_QUICK_PREFIX.getValue() && Command.getPrefix().length() == 1 && key == Command.getPrefix().charAt(0)) {
 			MinecraftClient.getInstance().setScreen(new ChatScreen(Command.getPrefix()));
 		}
 
 		ModuleManager.handleKey(key);
 
-		if (key >= 0) {
-			EventKeyPress.InWorld event = new EventKeyPress.InWorld(key, scanCode);
-			BleachHack.eventBus.post(event);
-
-			if (event.isCancelled()) {
-				callbackInfo.cancel();
+		switch (action) {
+			case 0 -> {
+				EventKeyPress.InWorld event = new EventKeyPress.InWorld(key, scanCode, EventKeyPress.Status.RELEASED);
+				BleachHack.eventBus.post(event);
+				if (event.isCancelled()) callbackInfo.cancel();
+			}
+			case 1 -> {
+				EventKeyPress.InWorld event = new EventKeyPress.InWorld(key, scanCode, EventKeyPress.Status.PRESSED);
+				ModuleManager.handleKey(key);
+				BleachHack.eventBus.post(event);
+				if (event.isCancelled()) callbackInfo.cancel();
 			}
 		}
 	}

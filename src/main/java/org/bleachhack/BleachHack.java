@@ -12,11 +12,11 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import net.fabricmc.api.ModInitializer;
-import net.minecraft.SharedConstants;
 
-import java.net.http.HttpResponse.BodyHandlers;
+import java.net.http.HttpResponse;
 import java.util.concurrent.CompletableFuture;
 
+import net.minecraft.SharedConstants;
 import org.apache.logging.log4j.Level;
 import org.bleachhack.command.CommandManager;
 import org.bleachhack.command.CommandSuggestor;
@@ -78,8 +78,10 @@ public class BleachHack implements ModInitializer {
 		BleachFileHelper.readOptions();
 		BleachFileHelper.readFriends();
 
+		//TODO: Here
+
 		if (Option.GENERAL_CHECK_FOR_UPDATES.getValue()) {
-			updateJson = BleachOnlineMang.getResourceAsync("update/" + SharedConstants.getGameVersion().getName().replace(' ', '_') + ".json", BodyHandlers.ofString())
+			updateJson = BleachOnlineMang.getResourceAsync("update/" + SharedConstants.getGameVersion().getName().replace(' ', '_') + ".json", HttpResponse.BodyHandlers.ofString())
 					.thenApply(s -> BleachJsonHelper.parseOrNull(s, JsonObject.class));
 		}
 

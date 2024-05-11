@@ -8,13 +8,13 @@
  */
 package org.bleachhack.util.collections;
 
+import org.apache.commons.lang3.tuple.ImmutablePair;
+
 import java.io.Serial;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
-
-import org.apache.commons.lang3.tuple.ImmutablePair;
 
 public class ImmutablePairList<L, R> extends ArrayList<ImmutablePair<L, R>> {
 

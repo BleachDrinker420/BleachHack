@@ -8,17 +8,16 @@
  */
 package org.bleachhack.gui;
 
-import net.minecraft.resource.ResourceType;
-import org.apache.commons.lang3.math.NumberUtils;
-
 import net.minecraft.MinecraftVersion;
 import net.minecraft.SharedConstants;
 import net.minecraft.client.ClientBrandRetriever;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.TextFieldWidget;
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.resource.ResourceType;
 import net.minecraft.text.Text;
+import org.apache.commons.lang3.math.NumberUtils;
 
 
 public class ProtocolScreen extends Screen {
@@ -79,17 +78,16 @@ public class ProtocolScreen extends Screen {
 				button -> brandField.setText("forge")).position(width / 2 + 79, height / 2 + 14).size(20, 20).build());
 	}
 
-	public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-		renderBackground(matrices);
-		drawCenteredTextWithShadow(matrices, textRenderer, "NOTE: This will not make the game compatible with other versions", width / 2, 5, 0xaaaaaa);
-		drawCenteredTextWithShadow(matrices, textRenderer, "It will only change what the client says it is to servers.", width / 2, 15, 0xaaaaaa);
+	public void render(DrawContext drawContext, int mouseX, int mouseY, float delta) {
+		renderBackground(drawContext, mouseX, mouseY, delta);
+		drawContext.drawTextWithShadow(textRenderer, "NOTE: This will not make the game compatible with other versions", width / 5, 5, 0xaaaaaa);
+		drawContext.drawTextWithShadow(textRenderer, "It will only change what the client says it is to servers.", width / 5, 15, 0xaaaaaa);
+		drawContext.drawTextWithShadow(textRenderer, "Version:", width / 2 - 103 - textRenderer.getWidth("Version:"), height / 2 - 55, 0xaaaaaa);
+		drawContext.drawTextWithShadow(textRenderer, "Protocol:", width / 2 - 103 - textRenderer.getWidth("Protocol:"), height / 2 - 30, 0xaaaaaa);
+		drawContext.drawTextWithShadow(textRenderer, "Pack Ver:", width / 2 - 103 - textRenderer.getWidth("Pack Ver:"), height / 2 - 5, 0xaaaaaa);
+		drawContext.drawTextWithShadow(textRenderer, "Brand:", width / 2 - 103 - textRenderer.getWidth("Brand:"), height / 2 + 20, 0xaaaaaa);
 
-		drawTextWithShadow(matrices, textRenderer, "Version:", width / 2 - 103 - textRenderer.getWidth("Version:"), height / 2 - 55, 0xaaaaaa);
-		drawTextWithShadow(matrices, textRenderer, "Protocol:", width / 2 - 103 - textRenderer.getWidth("Protocol:"), height / 2 - 30, 0xaaaaaa);
-		drawTextWithShadow(matrices, textRenderer, "Pack Ver:", width / 2 - 103 - textRenderer.getWidth("Pack Ver:"), height / 2 - 5, 0xaaaaaa);
-		drawTextWithShadow(matrices, textRenderer, "Brand:", width / 2 - 103 - textRenderer.getWidth("Brand:"), height / 2 + 20, 0xaaaaaa);
-
-		super.render(matrices, mouseX, mouseY, delta);
+		super.render(drawContext, mouseX, mouseY, delta);
 	}
 
 	public void close() {
@@ -97,10 +95,11 @@ public class ProtocolScreen extends Screen {
 	}
 
 	public void tick() {
-		versionField.tick();
-		protocolField.tick();
-		packVerField.tick();
-		brandField.tick();
+		super.tick();
+		//versionField.tick();
+		//protocolField.tick();
+		//packVerField.tick();
+		//brandField.tick();
 
 		super.tick();
 	}

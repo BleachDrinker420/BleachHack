@@ -8,6 +8,7 @@
  */
 package org.bleachhack.gui;
 
+import net.minecraft.client.gui.DrawContext;
 import org.bleachhack.gui.window.Window;
 import org.bleachhack.gui.window.WindowScreen;
 import org.bleachhack.gui.window.widget.WindowButtonWidget;
@@ -17,7 +18,6 @@ import org.bleachhack.gui.window.widget.WindowWidget;
 import org.bleachhack.setting.option.Option;
 
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.text.HoverEvent;
@@ -80,7 +80,7 @@ public class BleachOptionsScreen extends WindowScreen {
 			// Revert button
 			getWindow(window).addWidget(new WindowButtonWidget(x + 68, y - 3, x + 84, y + 13, "", entry::resetValue)
 					.withRenderEvent((w, ms, wx, wy)
-							-> ((WindowButtonWidget) w).text = entry.isDefault() ? "\u00a77\u21c4" : "\u21c4"));
+							-> ((WindowButtonWidget) w).text = entry.isDefault() ? "§7⇄" : "⇄"));
 
 			// Name text (at the end because of... reasons)
 			getWindow(window).addWidget(new WindowTextWidget(
@@ -95,8 +95,8 @@ public class BleachOptionsScreen extends WindowScreen {
 	}
 
 	@Override
-	public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-		this.renderBackground(matrices);
+	public void render(DrawContext drawContext, int mouseX, int mouseY, float delta) {
+		this.renderBackground(drawContext, mouseX, mouseY, delta);
 
 		int offset = scrollbar.getOffsetSinceRender();
 		for (WindowWidget widget: getWindow(0).getWidgets()) {
@@ -106,14 +106,14 @@ public class BleachOptionsScreen extends WindowScreen {
 			}
 		}
 
-		super.render(matrices, mouseX, mouseY, delta);
+		super.render(drawContext, mouseX, mouseY, delta);
 	}
 
 	@Override
-	public boolean mouseScrolled(double mouseX, double mouseY, double amount) {
-		scrollbar.moveScrollbar((int) -amount * 7);
+	public boolean mouseScrolled(double mouseX, double mouseY, double amountH, double amountV) {
+		scrollbar.moveScrollbar((int) -amountV * 7);
 
-		return super.mouseScrolled(mouseX, mouseY, amount);
+		return super.mouseScrolled(mouseX, mouseY, amountH, amountV);
 	}
 
 	@Override

@@ -8,13 +8,12 @@
  */
 package org.bleachhack.util.operation;
 
-import org.bleachhack.util.render.Renderer;
-import org.bleachhack.util.render.color.QuadColor;
-
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
+import org.bleachhack.util.render.Renderer;
+import org.bleachhack.util.render.color.QuadColor;
 
 public class RemoveOperation extends Operation {
 

@@ -8,34 +8,8 @@
  */
 package org.bleachhack.util;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.EnumMap;
-import java.util.Enumeration;
-import java.util.Locale;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
-
-import javax.sound.midi.MetaMessage;
-import javax.sound.midi.MidiEvent;
-import javax.sound.midi.MidiFileFormat;
-import javax.sound.midi.MidiMessage;
-import javax.sound.midi.MidiSystem;
-import javax.sound.midi.Sequence;
-import javax.sound.midi.ShortMessage;
-import javax.sound.midi.Track;
-
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.FilenameUtils;
-import org.bleachhack.module.mods.Notebot.Note;
-import org.bleachhack.module.mods.Notebot.Song;
-import org.bleachhack.util.io.BleachFileMang;
-import org.bleachhack.util.io.BleachOnlineMang;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.MultimapBuilder;
-
 import net.minecraft.block.enums.Instrument;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.sound.PositionedSoundInstance;
@@ -46,6 +20,23 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
+import org.bleachhack.module.mods.Notebot.Note;
+import org.bleachhack.module.mods.Notebot.Song;
+import org.bleachhack.util.io.BleachFileMang;
+import org.bleachhack.util.io.BleachOnlineMang;
+
+import javax.sound.midi.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.EnumMap;
+import java.util.Enumeration;
+import java.util.Locale;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 
 public class NotebotUtils {
 
@@ -145,7 +136,7 @@ public class NotebotUtils {
 						String[] split = s.split(":");
 						notes.put(Integer.parseInt(split[0]), new Note(Integer.parseInt(split[1]), Integer.parseInt(split[2])));
 					} catch (NumberFormatException | IndexOutOfBoundsException e) {
-						BleachLogger.warn("Error trying to parse note: \u00a7o" + s);
+						BleachLogger.warn("Error trying to parse note: §o" + s);
 					}
 				}
 			}

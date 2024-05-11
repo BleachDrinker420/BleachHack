@@ -58,10 +58,10 @@ public abstract class Command {
 	}
 
 	public Text getHelpTooltip() {
-		return Text.literal("\u00a77Category: " + getCategory() + "\n")
-				.append("Aliases: \u00a7f" + getPrefix() + String.join(" \u00a77/\u00a7f " + getPrefix(), getAliases()) + "\n").styled(s -> s.withColor(BleachLogger.INFO_COLOR))
-				.append("Usage: \u00a7f" + getSyntax() + "\n").styled(s -> s.withColor(BleachLogger.INFO_COLOR))
-				.append("Description: \u00a7f" + getDescription()).styled(s -> s.withColor(BleachLogger.INFO_COLOR));
+		return Text.literal("§7Category: " + getCategory() + "\n")
+				.append("Aliases: §f" + getPrefix() + String.join(" §7/§f " + getPrefix(), getAliases()) + "\n").styled(s -> s.withColor(BleachLogger.INFO_COLOR))
+				.append("Usage: §f" + getSyntax() + "\n").styled(s -> s.withColor(BleachLogger.INFO_COLOR))
+				.append("Description: §f" + getDescription()).styled(s -> s.withColor(BleachLogger.INFO_COLOR));
 	}
 
 	public abstract void onCommand(String alias, String[] args) throws Exception;

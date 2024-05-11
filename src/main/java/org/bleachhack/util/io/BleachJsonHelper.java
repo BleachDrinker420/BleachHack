@@ -8,14 +8,8 @@
  */
 package org.bleachhack.util.io;
 
+import com.google.gson.*;
 import org.bleachhack.util.BleachLogger;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
-import com.google.gson.JsonParser;
 
 public class BleachJsonHelper {
 

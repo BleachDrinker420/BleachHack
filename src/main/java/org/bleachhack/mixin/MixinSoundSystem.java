@@ -8,17 +8,16 @@
  */
 package org.bleachhack.mixin;
 
+import net.minecraft.client.sound.Sound;
+import net.minecraft.client.sound.SoundInstance;
+import net.minecraft.client.sound.SoundSystem;
+import net.minecraft.client.sound.TickableSoundInstance;
 import org.bleachhack.BleachHack;
 import org.bleachhack.event.events.EventSoundPlay;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import net.minecraft.client.sound.Sound;
-import net.minecraft.client.sound.SoundInstance;
-import net.minecraft.client.sound.SoundSystem;
-import net.minecraft.client.sound.TickableSoundInstance;
 
 @Mixin(SoundSystem.class)
 public class MixinSoundSystem {

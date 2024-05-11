@@ -30,7 +30,7 @@ public class CmdCustomSign extends Command {
 	}
 
 	@Override
-	public void onCommand(String alias, String[] args) {
+	public void onCommand(String alias, String[] args) throws CmdSyntaxException {
 		if (args.length == 0) {
 			throw new CmdSyntaxException();
 		}
@@ -40,7 +40,7 @@ public class CmdCustomSign extends Command {
 		if (args[0].equalsIgnoreCase("list")) {
 			String s = "Sign Text:";
 			for (Text text: noRender.signText) {
-				s += "\n\u00a77" + text.getString();
+				s += "\n§7" + text.getString();
 			}
 
 			BleachLogger.info(s);
