@@ -22,6 +22,8 @@ import net.minecraft.entity.projectile.AbstractFireballEntity;
 import net.minecraft.entity.projectile.ShulkerBulletEntity;
 import org.bleachhack.BleachHack;
 
+import static org.bleachhack.util.world.WorldUtils.mc;
+
 public class EntityUtils {
 
 	public static boolean isAnimal(Entity e) {
@@ -53,5 +55,14 @@ public class EntityUtils {
 				&& !e.isConnectedThroughVehicle(MinecraftClient.getInstance().player)
 				&& !(e instanceof PlayerCopyEntity)
 				&& (!ignoreFriends || !BleachHack.friendMang.has(e));
+	}
+
+	public static <T extends Entity> T findClosest(Class<T> entityClass, float range) {
+		for (Entity entity : mc.world.getEntities()) {
+			if (entityClass.isAssignableFrom(entity.getClass()) && !entity.equals(mc.player) && entity.distanceTo(mc.player) <= range) {
+				return (T) entity;
+			}
+		}
+		return null;
 	}
 }

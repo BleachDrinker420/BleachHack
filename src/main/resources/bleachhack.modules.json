@@ -1,6 +1,7 @@
 {
   "package": "org.bleachhack.module.mods",
   "modules": [
+    "AimAssist",
     "AirPlace",
     "Ambience",
     "AntiChunkBan",
